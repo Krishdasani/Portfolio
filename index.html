@@ -4,349 +4,233 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Krish Dasani — Portfolio</title>
-  <meta name="description" content="Full‑Stack Developer crafting fast, accessible web apps."/>
-  <meta name="theme-color" content="#0F172A"/>
+  <meta name="description" content="Full-Stack Developer crafting fast, accessible web apps."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0F172A;           /* slate-900 */
-      --text:#F8FAFC;         /* slate-50 */
-      --muted:#CBD5E1;        /* slate-300 */
-      --card:#111827;         /* gray-900 */
-      --border:#1F2937;       /* gray-800 */
-      --accent:#FB7185;       /* rose-400 (coral) */
-      --accent-ink:#000;
+      --bg:#ffffff;
+      --text:#1e293b;       /* slate-800 */
+      --muted:#64748b;      /* slate-500 */
+      --border:#e2e8f0;     /* slate-200 */
+      --accent:#2563eb;     /* blue-600 */
+      --accent-hover:#1d4ed8;
+      --card-bg:#f8fafc;    /* slate-50 */
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:16px/1.6 'Inter',sans-serif;background:var(--bg);color:var(--text)}
+    img{max-width:100%;display:block;border-radius:8px}
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    h1,h2,h3{font-weight:700}
+    h2{font-size:1.75rem;margin-bottom:1rem}
     .container{max-width:1100px;margin:0 auto;padding:0 16px}
-    .grid{display:grid;gap:16px;align-items:stretch}
-    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    @media (max-width: 768px){.grid-2{grid-template-columns:1fr}}
-    .row{display:flex;align-items:center;gap:12px}
-    .wrap{flex-wrap:wrap}
-    .between{justify-content:space-between}
-    .center{justify-content:center}
+    .grid{display:grid;gap:24px}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
     .mt-1{margin-top:8px}.mt-2{margin-top:16px}.mt-3{margin-top:24px}.mt-4{margin-top:32px}
-    .py-1{padding:8px 0}.py-2{padding:16px 0}.py-3{padding:24px 0}.py-4{padding:32px 0}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 1px 0 rgba(0,0,0,.25)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#1b2232;color:#e7e9ee;border:1px solid var(--border);font-size:13px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;font-weight:600;border:1px solid transparent}
-    .btn.primary{background:var(--accent);color:var(--accent-ink)}
-    .btn.ghost{background:#0b1324;border-color:var(--border);color:var(--text)}
-    .btn.small{padding:6px 10px;border-radius:10px;font-weight:500}
-    .btn svg{width:1.05em;height:1.05em;flex:0 0 1.05em}
-    .link-icon{display:inline-flex;align-items:center;gap:8px}
-    .link-icon svg{width:1em;height:1em}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:rgba(15,23,42,.85);border-bottom:1px solid var(--border)}
-    .hero h1{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0}
+    .py-2{padding:16px 0}.py-3{padding:32px 0}
+    .btn{display:inline-block;padding:10px 16px;border-radius:8px;font-weight:600;font-size:0.95rem;transition:.2s}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.primary:hover{background:var(--accent-hover)}
+    .btn.ghost{border:1px solid var(--border);background:#fff;color:var(--text)}
+    .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#e0e7ff;color:#1e3a8a;font-size:13px;margin:2px 4px 0 0}
+    .card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:16px;transition:.2s}
+    .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
     .muted{color:var(--muted)}
-    .footer{position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,42,.95);border-top:1px solid var(--border)}
-    ul.clean{list-style:disc;padding-left:20px;margin:0}
-    .aspect-video{aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0f1629}
-    .spacer{height:84px} /* keep content above fixed footer */
+    header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border)}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+    .nav a{margin-left:24px;font-weight:500;color:var(--muted)}
+    .nav a:hover{color:var(--accent)}
+    .brand{font-weight:700;font-size:1.1rem;color:var(--accent)}
+    /* Mobile menu */
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .hamburger span{width:24px;height:3px;background:var(--text);border-radius:2px}
+    .mobile-menu{display:none;flex-direction:column;background:#fff;border-top:1px solid var(--border)}
+    .mobile-menu a{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted)}
+    .mobile-menu a:hover{color:var(--accent)}
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+    }
+    footer{border-top:1px solid var(--border);padding:16px;text-align:center;font-size:0.9rem;color:var(--muted)}
   </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="container row between py-2">
-      <a class="brand" href="#home" style="font-weight:700">Krish Dasani</a>
-      <nav class="row wrap" style="gap:14px">
-        <a href="#projects" class="muted">Projects</a>
-        <a href="#skills" class="muted">Skills</a>
-        <a href="#experience" class="muted">Experience</a>
-        <a href="#education" class="muted">Education</a>
-        <a href="#contact" class="muted">Contact</a>
-        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer" aria-label="Open CV">CV</a>
+  <!-- NAV -->
+  <header>
+    <div class="nav container">
+      <div class="brand">Krish Dasani</div>
+      <nav class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank">CV</a>
       </nav>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <a href="krish_dasani_resume.pdf" target="_blank">CV</a>
     </div>
   </header>
 
-  <main id="home" class="container">
-    <!-- HERO: no portrait photo, with icon buttons -->
-    <section class="hero py-4">
-      <div class="grid" style="align-items:center;grid-template-columns:1fr;">
-        <div>
-          <h1>Full‑Stack Developer crafting fast, accessible web apps</h1>
-          <p class="muted mt-2">I build end‑to‑end solutions with a focus on performance, clean UI, and developer experience.</p>
-          <div class="row wrap mt-3">
-            <a class="btn primary" href="#projects">View Projects →</a>
-            <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <!-- GitHub icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-            <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <!-- LinkedIn icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 5 2.12 5 3.5ZM.5 8h4V24h-4V8Zm7.5 0h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.8 2.6 4.8 6V24h-4v-6.7c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V24h-4V8Z"/></svg>
-              LinkedIn
-            </a>
-            <a class="btn ghost" href="mailto:krishdasani123@gmail.com" aria-label="Email">
-              <!-- Mail icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-              Email
-            </a>
-            <a class="btn ghost" href="tel:+447767202154" aria-label="Call">
-              <!-- Phone icon -->
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.28.56 3.5.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.2 2.4.56 3.5a1 1 0 0 1-.24 1L6.6 10.8Z"/></svg>
-              Call
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- HERO -->
+  <section class="container py-3">
+    <h1>Hi, I’m Krish 👋</h1>
+    <p class="muted mt-1">Full-Stack Developer passionate about building performant, accessible, and user-friendly web applications.</p>
+    <div class="mt-2">
+      <a class="btn primary" href="#projects">View My Work</a>
+      <a class="btn ghost" href="mailto:krishdasani123@gmail.com">Contact Me</a>
+    </div>
+  </section>
 
-    <section id="projects" class="py-3">
-      <h2>Projects</h2>
-      <div class="grid grid-2 mt-2">
-        <!-- 1: Website Generator (GitHub) -->
-
-<article class="card" data-project style="display:flex;flex-direction:column">
-  <img class="aspect-video" id="wg-main" src="images/wg-1.png" alt="Website Generator screenshot">
-  <div class="row wrap mt-1" id="wg-thumbs">
-    <img src="images/wg-1.png" alt="thumb 1" style="width:110px;height:66px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer">
-    <img src="images/wg-2.png" alt="thumb 2" style="width:110px;height:66px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer">
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const main = document.getElementById('wg-main');
-      document.querySelectorAll('#wg-thumbs img').forEach(t => {
-        t.addEventListener('click', () => { main.src = t.src; });
-      });
-    });
-  </script>
-  <h3 class="mt-2">Website Generator for Photographers</h3>
-  <p class="muted">MSc dissertation — auto‑generates portfolio sites using Python/OpenCV</p>
-  <ul class="clean mt-1">
-    <li>Processed image metadata and quality metrics to build themed galleries</li>
-    <li>Template engine with modular blocks and responsive layouts</li>
-    <li>Exported static sites ready for Netlify/Vercel</li>
-  </ul>
-  <div class="mt-2">
-    <span class="badge">Python</span>
-    <span class="badge">OpenCV</span>
-    <span class="badge">Jinja</span>
-    <span class="badge">Tailwind</span>
-  </div>
-  <div class="row mt-2" style="margin-top:auto">
-    <a class="btn small ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer" aria-label="Open GitHub">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-      GitHub
-    </a>
-  </div>
-</article>
-
-
-        
-
-        <!-- 3: FitFusion (GitHub) -->
-        <article class="card" data-project style="display:flex;flex-direction:column">
-          
-<img class="aspect-video" id="fitfusion-main" src="images/fitfusion.png" alt="FitFusion preview"><h3 class="mt-2">FitFusion: Health Platform for Students</h3>
-          <p class="muted">Track workouts, nutrition, and goals with a friendly UI</p>
-          <ul class="clean mt-1">
-            <li>Modular React front‑end and Node/Express backend</li>
-            <li>JWT auth, role‑based access, and charts</li>
-          </ul>
-          <div class="mt-2">
-            <span class="badge">React</span>
-            <span class="badge">Node.js</span>
-            <span class="badge">Express</span>
-            <span class="badge">MongoDB</span>
-          </div>
-          <div class="row mt-2">
-            <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer" aria-label="Open GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
-
-        <!-- 4: MHADA (Live Demo) -->
-        <article class="card" data-project style="display:flex;flex-direction:column">
-          <img class="aspect-video" src="images/mahada-cover.png" alt="MHADA Project">
-          <h3 class="mt-2">MHADA Housing Lottery Portal</h3>
-          <p class="muted">End‑to‑end portal prototype for affordable housing lotteries</p>
-          <ul class="clean mt-1">
-            <li>Application flow, eligibility checks, and admin dashboard</li>
-            <li>Emphasis on clarity, validation, and performance</li>
-          </ul>
-          <div class="mt-2">
-            <span class="badge">React</span>
-            <span class="badge">FastAPI</span>
-            <span class="badge">PostgreSQL</span>
-          </div>
-          <div class="row mt-2">
-            <a class="btn small primary" href="https://lottery2021.in" target="_blank" rel="noreferrer" aria-label="Open Live Demo">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z"/></svg>
-              Live Demo
-            </a>
-          </div>
-        </article>
-
-        <!-- 5: Criminal Face Detection (GitHub) -->
-        <article class="card" data-project style="display:flex;flex-direction:column">
-          
-<img class="aspect-video" id="criminal-main" src="images/criminal-1.png" alt="Criminal Face Detection screenshot">
-<div class="row wrap mt-1" id="criminal-thumbs">
-  <img src="images/criminal-1.png" alt="thumb 1" style="width:110px;height:66px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer">
-  <img src="images/criminal-2.png" alt="thumb 2" style="width:110px;height:66px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer">
-  <img src="images/criminal-3.png" alt="thumb 3" style="width:110px;height:66px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer">
-</div>
-<script>
-  // Simple thumbnail swapper for Criminal Face Detection
-  document.addEventListener('DOMContentLoaded', function() {
-    const main = document.getElementById('criminal-main');
-    const thumbs = document.querySelectorAll('#criminal-thumbs img');
-    thumbs.forEach(t => t.addEventListener('click', () => { main.src = t.src; }));
-  });
-</script>
-
-          <h3 class="mt-2">Criminal Face Detection System</h3>
-          <p class="muted">Bachelor’s final‑year project using classical CV techniques</p>
-          <ul class="clean mt-1">
-            <li>Face detection & recognition pipeline and dataset preparation</li>
-            <li>Live demo with webcam feed and reporting</li>
-          </ul>
-          <div class="mt-2">
-            <span class="badge">Python</span>
-            <span class="badge">OpenCV</span>
-          </div>
-          <div class="row mt-2">
-            <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer" aria-label="Open GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="skills" class="py-3">
-      <h2>Skills</h2>
-      <p class="mt-1">
-        <span class="badge">JavaScript/TypeScript</span>
-        <span class="badge">React</span>
-        <span class="badge">Next.js</span>
-        <span class="badge">Node.js</span>
-        <span class="badge">Python</span>
-        <span class="badge">OpenCV</span>
-        <span class="badge">PHP</span>
-        <span class="badge">MySQL/PostgreSQL</span>
-        <span class="badge">Tailwind CSS</span>
-        <span class="badge">REST APIs</span>
-        <span class="badge">Docker</span>
-        <span class="badge">Git/GitHub Actions</span>
-      </p>
-    </section>
-
-    <section id="experience" class="py-3">
-      <h2>Experience</h2>
-      <div class="grid grid-2 mt-2">
-        <article class="card">
-          <h3>Full‑Stack Developer (Projects)</h3>
-          <p class="muted">Varshi Tech & Freelance · 2024 — 2025</p>
-          <ul class="clean mt-1">
-            <li>Built professional, responsive sites and dashboards</li>
-            <li>Integrated REST APIs and optimized DB queries</li>
-            <li>Tested, debugged, and shipped with CI/CD</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="education" class="py-3">
-      <h2>Education</h2>
-      <div class="grid grid-2 mt-2">
-        <article class="card">
-          <h3>MSc Computer Science (Merit)</h3>
-          <p class="muted">University of Strathclyde · 2023 — 2024</p>
-        </article>
-        <article class="card">
-          <h3>BE Computer Engineering (CGPI 7.61)</h3>
-          <p class="muted">University of Mumbai · 2019 — 2023</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="contact" class="py-4">
-      <h2>Contact</h2>
+  <!-- PROJECTS -->
+  <section id="projects" class="container py-3">
+    <h2>Projects</h2>
+    <div class="grid grid-2 mt-2">
+      <!-- Website Generator -->
       <article class="card">
-        <div class="grid grid-2">
-          <div>
-            <p>Want to collaborate or have a role in mind? Let’s chat.</p>
-            <p class="mt-1">
-              <span class="link-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-                <a href="mailto:krishdasani123@gmail.com">krishdasani123@gmail.com</a>
-              </span><br/>
-              <span class="link-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.28.56 3.5.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.2 2.4.56 3.5a1 1 0 0 1-.24 1L6.6 10.8Z"/></svg>
-                <a href="tel:+447767202154">07767202154</a>
-              </span>
-            </p>
-          </div>
-          <div class="row center wrap">
-            <a class="btn primary" href="mailto:krishdasani123@gmail.com" aria-label="Email me">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-              Email me
-            </a>
-            <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-            <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 5 2.12 5 3.5ZM.5 8h4V24h-4V8Zm7.5 0h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.8 2.6 4.8 6V24h-4v-6.7c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V24h-4V8Z"/></svg>
-              LinkedIn
-            </a>
-            <a class="btn ghost" href="tel:+447767202154" aria-label="Call">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.28.56 3.5.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.2 2.4.56 3.5a1 1 0 0 1-.24 1L6.6 10.8Z"/></svg>
-              Call
-            </a>
-          </div>
+        <img src="images/wg-1.png" alt="Website Generator">
+        <h3 class="mt-2">Website Generator for Photographers</h3>
+        <p class="muted">MSc dissertation — auto-generates portfolio sites using Python/OpenCV.</p>
+        <div class="mt-1">
+          <span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">Jinja</span>
+        </div>
+        <div class="mt-2">
+          <a class="btn ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank">GitHub</a>
         </div>
       </article>
-    </section>
 
-    <div class="spacer"></div>
-  </main>
+      <!-- FitFusion -->
+      <article class="card">
+        <img src="images/fitfusion.png" alt="FitFusion">
+        <h3 class="mt-2">FitFusion: Health Platform</h3>
+        <p class="muted">Track workouts, nutrition, and goals with a modular full-stack app.</p>
+        <div class="mt-1">
+          <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span>
+        </div>
+        <div class="mt-2">
+          <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank">GitHub</a>
+        </div>
+      </article>
 
-  <footer class="footer py-2">
-    <div class="container row between wrap">
-      <small>© <span id="year"></span> Krish Dasani. All rights reserved.</small>
-      <div class="row wrap">
-        <a class="link-icon" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94.43.38.81 1.12.81 2.26v3.35c0 .32.21.68.83.56A12 12 0 0 0 12 .5Z"/></svg>
-          GitHub
-        </a>
-        <a class="link-icon" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 5 2.12 5 3.5ZM.5 8h4V24h-4V8Zm7.5 0h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.8 2.6 4.8 6V24h-4v-6.7c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V24h-4V8Z"/></svg>
-          LinkedIn
-        </a>
-        <a class="link-icon" href="mailto:krishdasani123@gmail.com" aria-label="Email">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-          Email
-        </a>
-        <a class="link-icon" href="tel:+447767202154" aria-label="Call">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.36 2.28.56 3.5.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.2 2.4.56 3.5a1 1 0 0 1-.24 1L6.6 10.8Z"/></svg>
-          Call
-        </a>
-      </div>
+      <!-- MHADA -->
+      <article class="card">
+        <img src="images/mahada-cover.png" alt="MHADA Project">
+        <h3 class="mt-2">MHADA Housing Lottery Portal</h3>
+        <p class="muted">Prototype portal for affordable housing lotteries with clear flows and admin dashboard.</p>
+        <div class="mt-1">
+          <span class="badge">React</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span>
+        </div>
+        <div class="mt-2">
+          <a class="btn primary" href="https://lottery2021.in" target="_blank">Live Demo</a>
+        </div>
+      </article>
+
+      <!-- Criminal Face Detection -->
+      <article class="card">
+        <img src="images/criminal-1.png" alt="Criminal Face Detection">
+        <h3 class="mt-2">Criminal Face Detection</h3>
+        <p class="muted">Bachelor’s project implementing a face detection & recognition pipeline.</p>
+        <div class="mt-1">
+          <span class="badge">Python</span><span class="badge">OpenCV</span>
+        </div>
+        <div class="mt-2">
+          <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank">GitHub</a>
+        </div>
+      </article>
+
+      <!-- NEW: SimpleMoney -->
+      <article class="card">
+        <img src="images/simplemoney.png" alt="SimpleMoney">
+        <h3 class="mt-2">SimpleMoney: Personal Finance</h3>
+        <p class="muted">Web app to track income, expenses, and savings goals with insights.</p>
+        <div class="mt-1">
+          <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span><span class="badge">Chart.js</span>
+        </div>
+        <div class="mt-2">
+          <a class="btn ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank">GitHub</a>
+          <a class="btn primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank">Live Demo</a>
+        </div>
+      </article>
     </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="container py-3">
+    <h2>Skills</h2>
+    <p class="mt-1">
+      <span class="badge">JavaScript/TypeScript</span>
+      <span class="badge">React</span>
+      <span class="badge">Next.js</span>
+      <span class="badge">Node.js</span>
+      <span class="badge">Python</span>
+      <span class="badge">OpenCV</span>
+      <span class="badge">PHP</span>
+      <span class="badge">MySQL/PostgreSQL</span>
+      <span class="badge">Tailwind CSS</span>
+      <span class="badge">REST APIs</span>
+      <span class="badge">Docker</span>
+      <span class="badge">Git/GitHub Actions</span>
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="container py-3">
+    <h2>Experience</h2>
+    <article class="card mt-2">
+      <h3>Full-Stack Developer (Projects)</h3>
+      <p class="muted">Varshi Tech & Freelance · 2024 — 2025</p>
+      <ul class="mt-1 muted">
+        <li>Built professional, responsive sites and dashboards</li>
+        <li>Integrated REST APIs and optimized DB queries</li>
+        <li>Tested, debugged, and shipped with CI/CD</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="container py-3">
+    <h2>Education</h2>
+    <div class="grid grid-2 mt-2">
+      <article class="card">
+        <h3>MSc Computer Science (Merit)</h3>
+        <p class="muted">University of Strathclyde · 2023 — 2024</p>
+      </article>
+      <article class="card">
+        <h3>BE Computer Engineering (CGPI 7.61)</h3>
+        <p class="muted">University of Mumbai · 2019 — 2023</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container py-3">
+    <h2>Contact</h2>
+    <p class="mt-1 muted">Want to collaborate or have a role in mind? Let’s chat.</p>
+    <div class="mt-2">
+      <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email Me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> Krish Dasani. All rights reserved.
   </footer>
 
   <script>
-    // dynamic year
     document.getElementById('year').textContent = new Date().getFullYear();
-    // smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const t=document.querySelector(a.getAttribute('href'));
-        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});history.pushState(null,'',a.getAttribute('href'));}
-      })
-    });
+    const hamburger=document.getElementById('hamburger');
+    const mobileMenu=document.getElementById('mobileMenu');
+    hamburger.addEventListener('click',()=>{mobileMenu.style.display=mobileMenu.style.display==='flex'?'none':'flex'});
   </script>
 </body>
 </html>
