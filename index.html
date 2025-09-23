@@ -1,40 +1,415 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Krish Dasani — Portfolio</title>
-  <meta name="description" content="Full-Stack Developer building crisp, fast, human-friendly web apps."/>
+  <meta name="description" content="Full-Stack Developer crafting crisp, fast, human-friendly web apps."/>
   <meta name="theme-color" content="#ffffff"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=General+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#ffffff;
       --ink:#0f172a;              /* slate-900 */
-      --muted:#5b6b7b;            /* slate-500-ish */
-      --line:#e6edf3;             /* soft line */
-      --card:#f9fbfd;             /* card surface */
-      --accent:#7c3aed;           /* violet */
-      --accent-2:#22c55e;         /* green accent */
-      --radius:16px;
+      --muted:#64748b;            /* slate-500 */
+      --line:#e2e8f0;             /* slate-200 */
+      --card:#f8fafc;             /* surface */
+      --accent:#2563eb;           /* blue-600 */
+      --accent-2:#f43f5e;         /* rose-500 */
+      --accent-3:#10b981;         /* emerald-500 */
+      --radius:18px;
       --shadow:0 10px 30px rgba(2,6,23,.08);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0;
-      font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
-      color:var(--ink);
-      background:
-        radial-gradient(1000px 600px at 85% -10%, #ede9fe 0%, transparent 55%),
-        radial-gradient(900px 500px at -10% 10%, #dcfce7 0%, transparent 45%),
-        #fff;
-    }
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;overflow-x:hidden}
     img{max-width:100%;display:block;border-radius:12px}
     a{color:inherit;text-decoration:none}
-    h1,h2,h3{font-family:Sora,Inter,sans-serif}
-    h1{font-weight:700;font-size:clamp(28px,4.2vw,44px);line-height:1.15;margin:0}
+    h1,h2,h3{font-family:"General Sans",Inter,sans-serif;letter-spacing:.1px}
+    h1{font-weight:700;font-size:clamp(28px,4.2vw,48px);line-height:1.12;margin:0}
+    h2{font-weight:700;font-size:clamp(20px,2.4vw,28px);margin:0 0 6px}
+    h3{font-weight:600;margin:0}
+    .container{max-width:1160px;margin:0 auto;padding:0 22px}
+    .grid{display:grid;gap:22px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-auto{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .row{display:flex;align-items:center;gap:12px}
+    .between{justify-content:space-between}
+    .wrap{flex-wrap:wrap}
+    .mt-1{margin-top:8px}.mt-2{margin-top:16px}.mt-3{margin-top:24px}.mt-4{margin-top:32px}.mt-5{margin-top:48px}
+    .py-2{padding:16px 0}.py-3{padding:28px 0}.py-4{padding:44px 0}
+    .muted{color:var(--muted)}
+    .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.86rem;margin:3px 6px 0 0}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;border:1px solid var(--line);font-weight:700;transition:.2s}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:var(--shadow)}
+    .btn.ghost{background:#fff}
+    .btn.soft{background:#eff6ff;border-color:#dbeafe;color:#1d4ed8}
+    .btn.small{padding:8px 12px;border-radius:10px;font-weight:600}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}/* Decorative blobs / ribbons */
+.backdrop{
+  position:fixed;inset:-10% -10% auto -10%;height:60vh;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(800px 300px at 90% 10%, rgba(59,130,246,.14), transparent 60%),
+    radial-gradient(600px 260px at 10% 0%, rgba(244,63,94,.12), transparent 55%),
+    radial-gradient(700px 260px at 50% -10%, rgba(16,185,129,.10), transparent 55%);
+  filter:saturate(120%);
+}
+
+/* ── Header: glassy bar + morphing hamburger ─────────────────── */
+header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{font:700 19px "General Sans",Inter,sans-serif;display:flex;align-items:center;gap:10px}
+.brand .logo{width:22px;height:22px;border-radius:6px;background:conic-gradient(from 120deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));box-shadow:0 6px 18px rgba(37,99,235,.25)}
+.navlinks a{margin-left:22px;color:var(--muted);font-weight:600}
+.navlinks a:hover{color:var(--ink)}
+
+/* Hamburger */
+.hamburger{display:none;position:relative;width:28px;height:22px;border:none;background:none;cursor:pointer}
+.hamburger span, .hamburger:before, .hamburger:after{content:"";position:absolute;left:0;right:0;height:3px;border-radius:2px;background:#111827;transition:.25s}
+.hamburger span{top:50%;transform:translateY(-50%)}
+.hamburger:before{top:0}
+.hamburger:after{bottom:0}
+.hamburger[aria-expanded="true"]:before{transform:translateY(9px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span{opacity:0}
+.hamburger[aria-expanded="true"]:after{transform:translateY(-9px) rotate(-45deg)}
+
+/* Mobile drawer */
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.18);backdrop-filter:blur(3px);z-index:70}
+.drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:340px;background:#fff;border-left:1px solid var(--line);box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
+.drawer a{padding:12px;border-radius:10px;font-weight:600;color:var(--muted)}
+.drawer a:hover{background:#f5f7fb;color:var(--ink)}
+
+@media (max-width: 900px){ .navlinks{display:none} .hamburger{display:block} }
+
+/* ── Hero: marquee + stat chips + featured preview ───────────── */
+.hero{padding:36px 0}
+.hero-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:26px}
+.marquee{display:flex;gap:12px;overflow:hidden;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:8px 10px;background:#fff}
+.marquee .roll{display:inline-block;animation:roll 16s linear infinite}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#eef2ff;border:1px solid #e5e7eb;color:#1e3a8a;border-radius:999px;padding:6px 12px;font-weight:600;margin-right:10px}
+.chip svg{width:1em;height:1em}
+@keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.preview{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px}
+.preview .chrome{display:flex;gap:6px;margin-bottom:10px}
+.dot{width:10px;height:10px;border-radius:50%}
+.d-red{background:#fca5a5}.d-yellow{background:#fde68a}.d-green{background:#86efac}
+
+@media (max-width: 1000px){ .hero-wrap{grid-template-columns:1fr} }
+
+/* ── Projects: mosaic grid + 3D-tilt cards + filters ─────────── */
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.filter{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;color:#111827;cursor:pointer}
+.filter[aria-pressed="true"]{background:#111827;color:#fff;border-color:#111827}
+
+.mosaic{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.tile{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;transform-style:preserve-3d;transition:transform .12s ease-out, box-shadow .2s}
+.tile.featured{grid-column:span 12}
+.tile:hover{box-shadow:0 12px 28px rgba(2,6,23,.12)}
+.tile header{padding:16px 16px 0}
+.tile .body{padding:12px 16px}
+.tile footer{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.tagbar{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width: 1100px){ .tile{grid-column:span 12} }
+
+/* ── Skills: cards + meters ──────────────────────────────────── */
+.meter{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
+.meter>span{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,var(--accent));}
+
+/* ── Timeline ────────────────────────────────────────────────── */
+.timeline{position:relative;padding-left:28px}
+.timeline:before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--line)}
+.tl{position:relative;padding:12px 0}
+.tl:before{content:'';position:absolute;left:3px;top:18px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(12px);transition:.5s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+}
+
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>  <!-- Header -->  <header>
+    <div class="container nav">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Krish Dasani</div>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
+      </nav>
+      <button class="hamburger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+    <div class="overlay" id="overlay" aria-hidden="true">
+      <nav class="drawer" role="dialog" aria-label="Mobile Navigation">
+        <div class="row between" style="margin-bottom:6px">
+          <div class="brand"><span class="logo" aria-hidden="true"></span>Menu</div>
+          <button class="hamburger" id="close" aria-label="Close menu"><span></span></button>
+        </div>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
+      </nav>
+    </div>
+  </header>  <main>
+    <!-- Hero -->
+    <section class="container hero">
+      <div class="hero-wrap">
+        <div>
+          <h1 class="reveal">Creative engineer of crisp, fast, human‑friendly web apps.</h1>
+          <p class="muted mt-2 reveal" style="max-width:60ch">I design and build end‑to‑end solutions with performance, accessibility, and maintainability at the core. Open to graduate & junior SWE roles across the UK.</p><div class="marquee mt-3" aria-label="Tech stack marquee">
+        <div class="roll">
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Python</span>
+          <span class="chip">OpenCV</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">MongoDB</span>
+          <span class="chip">Docker</span>
+          <span class="chip">CI/CD</span>
+          <!-- duplicate for seamless loop -->
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Python</span>
+          <span class="chip">OpenCV</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">MongoDB</span>
+          <span class="chip">Docker</span>
+          <span class="chip">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="row wrap mt-3 reveal">
+        <a class="btn primary" href="#projects">See projects</a>
+        <a class="btn ghost" href="mailto:krishdasani123@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+
+    <div class="preview reveal">
+      <div class="chrome"><span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span></div>
+      <img src="images/simplemoney.png" alt="SimpleMoney preview">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Projects -->
+<section id="projects" class="container py-4">
+  <div class="row between wrap">
+    <div>
+      <h2>Projects</h2>
+      <p class="muted">Selected builds & prototypes</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="Filter projects">
+      <button class="filter" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter" data-filter="web">Web</button>
+      <button class="filter" data-filter="ml">CV/ML</button>
+    </div>
+  </div>
+
+  <div class="mosaic mt-3">
+    <!-- FEATURED: SimpleMoney -->
+    <article class="tile featured reveal" data-tags="web" aria-label="SimpleMoney project card">
+      <header>
+        <h3>SimpleMoney — Personal Finance Simplified</h3>
+        <p class="muted mt-1">Track income, expenses, and savings goals with a clean dashboard, monthly insights, and custom categories.</p>
+      </header>
+      <img src="images/simplemoney.png" alt="SimpleMoney dashboard" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+      <div class="body">
+        <div class="tagbar"><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span><span class="badge">Chart.js</span></div>
+      </div>
+      <footer>
+        <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
+      </footer>
+    </article>
+
+    <!-- Website Generator -->
+    <article class="tile reveal" data-tags="web ml">
+      <header>
+        <h3>Website Generator for Photographers</h3>
+        <p class="muted mt-1">MSc dissertation: generates static portfolio sites from image metadata & quality metrics.</p>
+      </header>
+      <img src="images/wg-1.png" alt="Website Generator screenshot">
+      <div class="body">
+        <div class="tagbar"><span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">Jinja</span></div>
+      </div>
+      <footer>
+        <a class="btn small ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
+    </article>
+
+    <!-- FitFusion -->
+    <article class="tile reveal" data-tags="web">
+      <header>
+        <h3>FitFusion — Health Platform</h3>
+        <p class="muted mt-1">Full‑stack fitness app for workouts, nutrition, and goals with role‑based access.</p>
+      </header>
+      <img src="images/fitfusion.png" alt="FitFusion preview">
+      <div class="body">
+        <div class="tagbar"><span class="badge">React</span><span class="badge">Node</span><span class="badge">MongoDB</span></div>
+      </div>
+      <footer>
+        <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
+    </article>
+
+    <!-- MHADA -->
+    <article class="tile reveal" data-tags="web">
+      <header>
+        <h3>MHADA Housing Lottery Portal</h3>
+        <p class="muted mt-1">Prototype portal for affordable housing lotteries with clear flows & admin tools.</p>
+      </header>
+      <img src="images/mahada-cover.png" alt="MHADA portal">
+      <div class="body">
+        <div class="tagbar"><span class="badge">React</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span></div>
+      </div>
+      <footer>
+        <a class="btn small primary" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a>
+      </footer>
+    </article>
+
+    <!-- Criminal Face Detection -->
+    <article class="tile reveal" data-tags="ml">
+      <header>
+        <h3>Criminal Face Detection System</h3>
+        <p class="muted mt-1">Classical CV pipeline for detection & recognition with a webcam demo.</p>
+      </header>
+      <img src="images/criminal-1.png" alt="Criminal Face Detection">
+      <div class="body">
+        <div class="tagbar"><span class="badge">Python</span><span class="badge">OpenCV</span></div>
+      </div>
+      <footer>
+        <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Skills -->
+<section id="skills" class="container py-4">
+  <div class="row between wrap">
+    <div>
+      <h2>Skills</h2>
+      <p class="muted">What I use to ship reliable software</p>
+    </div>
+  </div>
+  <div class="grid grid-auto mt-2">
+    <article class="card reveal">
+      <h3>Frontend</h3>
+      <p class="muted mt-1">Accessible, performant interfaces.</p>
+      <div class="row wrap mt-1">
+        <span class="badge">JavaScript/TypeScript</span><span class="badge">React</span><span class="badge">Next.js</span><span class="badge">Tailwind</span>
+      </div>
+      <div class="meter mt-2" aria-hidden="true"><span style="width:88%"></span></div>
+    </article>
+    <article class="card reveal">
+      <h3>Backend</h3>
+      <p class="muted mt-1">APIs, auth, data models.</p>
+      <div class="row wrap mt-1">
+        <span class="badge">Node.js</span><span class="badge">Express</span><span class="badge">FastAPI</span><span class="badge">PHP</span>
+      </div>
+      <div class="meter mt-2" aria-hidden="true"><span style="width:82%"></span></div>
+    </article>
+    <article class="card reveal">
+      <h3>Data & Infra</h3>
+      <p class="muted mt-1">Databases, CI/CD, containers.</p>
+      <div class="row wrap mt-1">
+        <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">MySQL</span><span class="badge">Docker</span><span class="badge">GitHub Actions</span>
+      </div>
+      <div class="meter mt-2" aria-hidden="true"><span style="width:74%"></span></div>
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Experience -->
+<section id="experience" class="container py-4">
+  <h2>Experience</h2>
+  <div class="timeline mt-2">
+    <div class="tl reveal">
+      <div class="row between wrap">
+        <h3>Full‑Stack Developer (Projects)</h3>
+        <span class="muted">Varshi Tech & Freelance · 2024 — 2025</span>
+      </div>
+      <ul style="margin:8px 0 0 18px">
+        <li>Built responsive apps and dashboards with clean UX</li>
+        <li>Integrated REST APIs; optimised DB queries</li>
+        <li>Testing, debugging, and CI/CD for stable releases</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Education -->
+<section id="education" class="container py-4">
+  <h2>Education</h2>
+  <div class="grid grid-2 mt-2">
+    <article class="card reveal">
+      <h3>MSc Computer Science (Merit)</h3>
+      <p class="muted mt-1">University of Strathclyde · 2023 — 2024</p>
+    </article>
+    <article class="card reveal">
+      <h3>BE Computer Engineering (CGPI 7.61)</h3>
+      <p class="muted mt-1">University of Mumbai · 2019 — 2023</p>
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Contact -->
+<section id="contact" class="container py-4">
+  <h2>Contact</h2>
+  <article class="card mt-2 reveal">
+    <div class="row between wrap">
+      <p class="muted">Want to collaborate or have a role in mind? I’m open to roles across the UK (hybrid preferred).</p>
+      <div class="row wrap">
+        <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn ghost" href="tel:+447767202154">Call</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<div class="divider"></div>
+<footer class="container">© <span id="year"></span> Krish Dasani — <span class="muted">All rights reserved.</span></footer>
+
+  </main>  <script>
+    // dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href'); const tgt=document.query    h1{font-weight:700;font-size:clamp(28px,4.2vw,44px);line-height:1.15;margin:0}
     h2{font-weight:700;font-size:1.7rem;margin:0 0 4px}
     h3{font-weight:600;margin:0}
     .container{max-width:1120px;margin:0 auto;padding:0 22px}
