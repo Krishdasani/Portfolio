@@ -1,112 +1,162 @@
-    .grid-auto{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .row{display:flex;align-items:center;gap:12px}
-    .between{justify-content:space-between}
-    .wrap{flex-wrap:wrap}
-    .mt-1{margin-top:8px}.mt-2{margin-top:16px}.mt-3{margin-top:24px}.mt-4{margin-top:32px}.mt-5{margin-top:48px}
-    .py-2{padding:16px 0}.py-3{padding:28px 0}.py-4{padding:44px 0}
-    .muted{color:var(--muted)}
-    .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.86rem;margin:3px 6px 0 0}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;border:1px solid var(--line);font-weight:700;transition:.2s}
-    .btn:hover{transform:translateY(-1px)}
-    .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:var(--shadow)}
-    .btn.ghost{background:#fff}
-    .btn.soft{background:#eff6ff;border-color:#dbeafe;color:#1d4ed8}
-    .btn.small{padding:8px 12px;border-radius:10px;font-weight:600}
-    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}/* Decorative blobs / ribbons */
-.backdrop{
-  position:fixed;inset:-10% -10% auto -10%;height:60vh;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(800px 300px at 90% 10%, rgba(59,130,246,.14), transparent 60%),
-    radial-gradient(600px 260px at 10% 0%, rgba(244,63,94,.12), transparent 55%),
-    radial-gradient(700px 260px at 50% -10%, rgba(16,185,129,.10), transparent 55%);
-  filter:saturate(120%);
-}
+<!doctype html>
 
-/* ── Header: glassy bar + morphing hamburger ─────────────────── */
-header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.brand{font:700 19px "General Sans",Inter,sans-serif;display:flex;align-items:center;gap:10px}
-.brand .logo{width:22px;height:22px;border-radius:6px;background:conic-gradient(from 120deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));box-shadow:0 6px 18px rgba(37,99,235,.25)}
-.navlinks a{margin-left:22px;color:var(--muted);font-weight:600}
-.navlinks a:hover{color:var(--ink)}
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Krish Dasani — Portfolio</title>
+  <meta name="description" content="Full-Stack Developer crafting crisp, fast, human-friendly web apps."/>
+  <meta name="theme-color" content="#ffffff"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">  <style>
+  /* ====== Design Tokens ====== */
+  :root{
+    --bg:#ffffff;
+    --ink:#0f172a;         /* slate-900 */
+    --muted:#5b6b7b;       /* slate-500-ish */
+    --line:#e6edf3;        /* soft line */
+    --card:#f9fbfd;        /* surface */
+    --glass:rgba(255,255,255,.7);
+    --accentA:#6366f1;     /* indigo-500 */
+    --accentB:#06b6d4;     /* cyan-500 */
+    --accentC:#22c55e;     /* green-500 */
+    --radius:18px;
+    --shadow:0 14px 34px rgba(2,6,23,.10);
+  }
 
-/* Hamburger */
-.hamburger{display:none;position:relative;width:28px;height:22px;border:none;background:none;cursor:pointer}
-.hamburger span, .hamburger:before, .hamburger:after{content:"";position:absolute;left:0;right:0;height:3px;border-radius:2px;background:#111827;transition:.25s}
-.hamburger span{top:50%;transform:translateY(-50%)}
-.hamburger:before{top:0}
-.hamburger:after{bottom:0}
-.hamburger[aria-expanded="true"]:before{transform:translateY(9px) rotate(45deg)}
-.hamburger[aria-expanded="true"] span{opacity:0}
-.hamburger[aria-expanded="true"]:after{transform:translateY(-9px) rotate(-45deg)}
+  /* ====== Base ====== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font:16px/1.65 Manrope,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+    color:var(--ink);
+    background:
+      radial-gradient(1100px 600px at 90% -10%, #eef2ff 0%, transparent 55%),
+      radial-gradient(900px 500px at -10% 15%, #dcfce7 0%, transparent 45%),
+      #fff;
+  }
+  img{max-width:100%;display:block;border-radius:14px}
+  a{color:inherit;text-decoration:none}
+  h1{font-weight:800;font-size:clamp(30px,4.6vw,48px);line-height:1.12;margin:0}
+  h2{font-weight:800;font-size:1.8rem;margin:0 0 6px}
+  h3{font-weight:700;margin:0}
+  .container{max-width:1180px;margin:0 auto;padding:0 22px}
+  .grid{display:grid;gap:20px}
+  .grid-auto{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .row{display:flex;align-items:center;gap:12px}
+  .wrap{flex-wrap:wrap}
+  .between{justify-content:space-between}
+  .mt-1{margin-top:8px}.mt-2{margin-top:16px}.mt-3{margin-top:24px}.mt-4{margin-top:32px}.mt-5{margin-top:48px}
+  .py-2{padding:16px 0}.py-3{padding:28px 0}.py-4{padding:42px 0}
+  .muted{color:var(--muted)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.86rem;margin:3px 6px 0 0}
+  .chip{display:inline-block;padding:7px 12px;border-radius:999px;background:#eef2ff;color:#222; border:1px solid #e5e7eb;font-weight:700;font-size:.9rem}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;border:1px solid var(--line);font-weight:800;transition:.2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(90deg,var(--accentA),var(--accentB) 50%,var(--accentC));color:#fff;border:0;box-shadow:var(--shadow)}
+  .btn.ghost{background:#fff}
+  .btn.small{padding:8px 12px;border-radius:10px;font-weight:700}
 
-/* Mobile drawer */
-.overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.18);backdrop-filter:blur(3px);z-index:70}
-.drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:340px;background:#fff;border-left:1px solid var(--line);box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
-.drawer a{padding:12px;border-radius:10px;font-weight:600;color:var(--muted)}
-.drawer a:hover{background:#f5f7fb;color:var(--ink)}
+  /* ====== Fancy Utilities ====== */
+  .gradient-text{
+    background:linear-gradient(90deg,var(--accentA),var(--accentB) 50%,var(--accentC));
+    -webkit-background-clip:text;background-clip:text;color:transparent
+  }
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .soft{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .border-gradient{
+    background:
+      linear-gradient(#fff,#fff) padding-box,
+      linear-gradient(120deg,var(--accentA),var(--accentB) 50%,var(--accentC)) border-box;
+    border:1.5px solid transparent;border-radius:16px;
+  }
 
-@media (max-width: 900px){ .navlinks{display:none} .hamburger{display:block} }
+  /* ====== Glassy Navbar + Overlay Menu ====== */
+  .navwrap{position:sticky;top:0;z-index:60;background:transparent}
+  .nav{backdrop-filter:saturate(160%) blur(8px); background:var(--glass); border-bottom:1px solid var(--line)}
+  .nav .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  .logo{font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
+  .logo .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accentA),var(--accentB))}
+  .navlinks a{margin-left:22px;color:var(--muted);font-weight:700}
+  .navlinks a:hover{color:var(--ink)}
+  .hamburger{display:none;flex-direction:column;gap:5px;border:0;background:transparent;cursor:pointer}
+  .hamburger span{width:26px;height:3px;border-radius:2px;background:#1f2937}
+  @media (max-width: 980px){ .navlinks{display:none} .hamburger{display:flex} }
 
-/* ── Hero: marquee + stat chips + featured preview ───────────── */
-.hero{padding:36px 0}
-.hero-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:26px}
-.marquee{display:flex;gap:12px;overflow:hidden;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:8px 10px;background:#fff}
-.marquee .roll{display:inline-block;animation:roll 16s linear infinite}
-.chip{display:inline-flex;align-items:center;gap:8px;background:#eef2ff;border:1px solid #e5e7eb;color:#1e3a8a;border-radius:999px;padding:6px 12px;font-weight:600;margin-right:10px}
-.chip svg{width:1em;height:1em}
-@keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* Overlay drawer */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.15);backdrop-filter:blur(3px);z-index:80}
+  .drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:330px;background:#fff;border-left:1px solid var(--line);
+    box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
+  .drawer a{padding:12px;border-radius:10px;font-weight:700;color:var(--muted)}
+  .drawer a:hover{background:#f4f7fb;color:var(--ink)}
 
-.preview{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px}
-.preview .chrome{display:flex;gap:6px;margin-bottom:10px}
-.dot{width:10px;height:10px;border-radius:50%}
-.d-red{background:#fca5a5}.d-yellow{background:#fde68a}.d-green{background:#86efac}
+  /* ====== Hero (asymmetric + blobs) ====== */
+  .hero{position:relative}
+  .hero-rows{display:grid;grid-template-columns:1.25fr .75fr;gap:28px}
+  @media (max-width: 980px){ .hero-rows{grid-template-columns:1fr} }
+  .blob{
+    position:absolute;filter:blur(35px);opacity:.6;z-index:-1;
+    background:radial-gradient(circle at 30% 30%, #c7d2fe, transparent 60%),
+               radial-gradient(circle at 70% 60%, #bbf7d0, transparent 55%);
+    width:420px;height:420px;border-radius:50%;
+    animation:float 14s ease-in-out infinite alternate;
+  }
+  .blob.b2{right:-120px;top:-40px;transform:scale(1.2);animation-duration:18s}
+  .blob.b1{left:-120px;top:160px}
+  @keyframes float{to{transform:translateY(-20px) translateX(10px) scale(1.05)}}
 
-@media (max-width: 1000px){ .hero-wrap{grid-template-columns:1fr} }
+  .hero-card{
+    background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow)
+  }
+  .browser{
+    background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px
+  }
+  .browser .chrome{display:flex;gap:6px;margin-bottom:10px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .d-red{background:#fca5a5}.d-yellow{background:#fde68a}.d-green{background:#86efac}
 
-/* ── Projects: mosaic grid + 3D-tilt cards + filters ─────────── */
-.controls{display:flex;gap:8px;flex-wrap:wrap}
-.filter{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;color:#111827;cursor:pointer}
-.filter[aria-pressed="true"]{background:#111827;color:#fff;border-color:#111827}
+  /* ====== Projects (mosaic + filters + tilt) ====== */
+  .filters{display:flex;gap:10px;flex-wrap:wrap}
+  .filters .filter{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:800}
+  .filters .filter.active{background:linear-gradient(90deg,var(--accentA),var(--accentB));color:#fff;border:0}
+  .mosaic{
+    display:grid;grid-template-columns:repeat(12,1fr);gap:20px;margin-top:18px
+  }
+  .card-proj{
+    grid-column:span 6; display:flex; flex-direction:column; overflow:hidden;
+    background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    transform:perspective(800px) translateZ(0); transition:transform .2s;
+  }
+  .card-proj.featured{grid-column:span 12}
+  .card-proj header{padding:16px 16px 0}
+  .card-proj .body{padding:0 16px 16px}
+  .card-proj footer{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+  .card-proj img{border-radius:0}
+  @media (max-width: 1120px){ .card-proj{grid-column:span 12} }
 
-.mosaic{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
-.tile{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;transform-style:preserve-3d;transition:transform .12s ease-out, box-shadow .2s}
-.tile.featured{grid-column:span 12}
-.tile:hover{box-shadow:0 12px 28px rgba(2,6,23,.12)}
-.tile header{padding:16px 16px 0}
-.tile .body{padding:12px 16px}
-.tile footer{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
-.tagbar{display:flex;flex-wrap:wrap;gap:8px}
-@media (max-width: 1100px){ .tile{grid-column:span 12} }
+  /* ====== Skills / Meters ====== */
+  .meter{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
+  .meter>span{display:block;height:100%;background:linear-gradient(90deg,#a78bfa,var(--accentB))}
 
-/* ── Skills: cards + meters ──────────────────────────────────── */
-.meter{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
-.meter>span{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,var(--accent));}
+  /* ====== Timeline ====== */
+  .timeline{position:relative;padding-left:28px}
+  .timeline:before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--line)}
+  .tl{position:relative;padding:12px 0}
+  .tl:before{content:'';position:absolute;left:3px;top:18px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accentB)}
 
-/* ── Timeline ────────────────────────────────────────────────── */
-.timeline{position:relative;padding-left:28px}
-.timeline:before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--line)}
-.tl{position:relative;padding:12px 0}
-.tl:before{content:'';position:absolute;left:3px;top:18px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
+  /* ====== Reveal on scroll ====== */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.show{opacity:1;transform:none}
 
-/* ── Footer ──────────────────────────────────────────────────── */
-footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted)}
-
-/* Scroll reveal */
-.reveal{opacity:0;transform:translateY(12px);transition:.5s ease}
-.reveal.in{opacity:1;transform:none}
-
-@media (prefers-reduced-motion: reduce){
-  *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
-}
-
-  </style>
-</head>
-<body>
-  <div class="backdrop" aria-hidden="true"></div>  <!-- Header -->  <header>
-    <div class="container nav">
-      <div class="brand"><span class="logo" aria-hidden="true"></span>Krish Dasani</div>
+  /* ====== Footer ====== */
+  footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted)}
+  </style></head>
+<body><!-- Nav --><div class="navwrap">
+  <div class="nav">
+    <div class="container inner">
+      <div class="logo"><span class="dot"></span>Krish Dasani</div>
       <nav class="navlinks" aria-label="Primary">
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
@@ -115,313 +165,267 @@ footer{border-top:1px solid var(--line);padding:18px 0;color:var(--muted)}
         <a href="#contact">Contact</a>
         <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
       </nav>
-      <button class="hamburger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+      <button class="hamburger" id="openMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
-    <div class="overlay" id="overlay" aria-hidden="true">
-      <nav class="drawer" role="dialog" aria-label="Mobile Navigation">
-        <div class="row between" style="margin-bottom:6px">
-          <div class="brand"><span class="logo" aria-hidden="true"></span>Menu</div>
-          <button class="hamburger" id="close" aria-label="Close menu"><span></span></button>
-        </div>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
-      </nav>
+  </div>
+</div><!-- Mobile Drawer --><div class="overlay" id="overlay" aria-hidden="true">
+  <nav class="drawer" role="dialog" aria-label="Mobile Navigation">
+    <div class="row between" style="margin-bottom:6px">
+      <div class="logo"><span class="dot"></span>Menu</div>
+      <button class="hamburger" id="closeMenu" aria-label="Close menu"><span></span><span></span><span></span></button>
     </div>
-  </header>  <main>
-    <!-- Hero -->
-    <section class="container hero">
-      <div class="hero-wrap">
-        <div>
-          <h1 class="reveal">Creative engineer of crisp, fast, human‑friendly web apps.</h1>
-          <p class="muted mt-2 reveal" style="max-width:60ch">I design and build end‑to‑end solutions with performance, accessibility, and maintainability at the core. Open to graduate & junior SWE roles across the UK.</p><div class="marquee mt-3" aria-label="Tech stack marquee">
-        <div class="roll">
-          <span class="chip">React</span>
-          <span class="chip">TypeScript</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">Python</span>
-          <span class="chip">OpenCV</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">MongoDB</span>
-          <span class="chip">Docker</span>
-          <span class="chip">CI/CD</span>
-          <!-- duplicate for seamless loop -->
-          <span class="chip">React</span>
-          <span class="chip">TypeScript</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">Python</span>
-          <span class="chip">OpenCV</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">MongoDB</span>
-          <span class="chip">Docker</span>
-          <span class="chip">CI/CD</span>
-        </div>
-      </div>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+    <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
+  </nav>
+</div><main class="container py-3">
+  <!-- Hero -->
+  <section class="hero reveal">
+    <div class="blob b1" aria-hidden="true"></div>
+    <div class="blob b2" aria-hidden="true"></div><div class="hero-rows border-gradient" style="padding:22px">
+  <div>
+    <h1>Building <span class="gradient-text">clean, fast, human-friendly</span> web apps.</h1>
+    <p class="muted mt-2">Full-stack developer focused on performance, accessibility, and delightful UX. UK-based. Open to grad & junior SWE roles.</p>
+    <div class="row wrap mt-2">
+      <span class="chip">React / Node</span>
+      <span class="chip">Python / OpenCV</span>
+      <span class="chip">PostgreSQL / MongoDB</span>
+      <span class="chip">CI/CD</span>
+    </div>
+    <div class="row wrap mt-3">
+      <a class="btn primary" href="#projects">See projects</a>
+      <a class="btn ghost" href="mailto:krishdasani123@gmail.com">Email me</a>
+      <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+  </div>
 
-      <div class="row wrap mt-3 reveal">
-        <a class="btn primary" href="#projects">See projects</a>
-        <a class="btn ghost" href="mailto:krishdasani123@gmail.com">Email me</a>
-        <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-      </div>
-    </div>
-
-    <div class="preview reveal">
+  <!-- Featured visual: SimpleMoney -->
+  <div class="hero-card">
+    <div class="browser">
       <div class="chrome"><span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span></div>
       <img src="images/simplemoney.png" alt="SimpleMoney preview">
     </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Projects -->
-<section id="projects" class="container py-4">
-  <div class="row between wrap">
-    <div>
-      <h2>Projects</h2>
-      <p class="muted">Selected builds & prototypes</p>
-    </div>
-    <div class="controls" role="toolbar" aria-label="Filter projects">
-      <button class="filter" data-filter="all" aria-pressed="true">All</button>
-      <button class="filter" data-filter="web">Web</button>
-      <button class="filter" data-filter="ml">CV/ML</button>
+    <div class="row wrap mt-2">
+      <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">SimpleMoney GitHub</a>
+      <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
     </div>
   </div>
+</div>
 
-  <div class="mosaic mt-3">
-    <!-- FEATURED: SimpleMoney -->
-    <article class="tile featured reveal" data-tags="web" aria-label="SimpleMoney project card">
-      <header>
-        <h3>SimpleMoney — Personal Finance Simplified</h3>
-        <p class="muted mt-1">Track income, expenses, and savings goals with a clean dashboard, monthly insights, and custom categories.</p>
-      </header>
-      <img src="images/simplemoney.png" alt="SimpleMoney dashboard" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-      <div class="body">
-        <div class="tagbar"><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span><span class="badge">Chart.js</span></div>
-      </div>
-      <footer>
-        <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
-      </footer>
-    </article>
-
-    <!-- Website Generator -->
-    <article class="tile reveal" data-tags="web ml">
-      <header>
-        <h3>Website Generator for Photographers</h3>
-        <p class="muted mt-1">MSc dissertation: generates static portfolio sites from image metadata & quality metrics.</p>
-      </header>
-      <img src="images/wg-1.png" alt="Website Generator screenshot">
-      <div class="body">
-        <div class="tagbar"><span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">Jinja</span></div>
-      </div>
-      <footer>
-        <a class="btn small ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a>
-      </footer>
-    </article>
-
-    <!-- FitFusion -->
-    <article class="tile reveal" data-tags="web">
-      <header>
-        <h3>FitFusion — Health Platform</h3>
-        <p class="muted mt-1">Full‑stack fitness app for workouts, nutrition, and goals with role‑based access.</p>
-      </header>
-      <img src="images/fitfusion.png" alt="FitFusion preview">
-      <div class="body">
-        <div class="tagbar"><span class="badge">React</span><span class="badge">Node</span><span class="badge">MongoDB</span></div>
-      </div>
-      <footer>
-        <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-      </footer>
-    </article>
-
-    <!-- MHADA -->
-    <article class="tile reveal" data-tags="web">
-      <header>
-        <h3>MHADA Housing Lottery Portal</h3>
-        <p class="muted mt-1">Prototype portal for affordable housing lotteries with clear flows & admin tools.</p>
-      </header>
-      <img src="images/mahada-cover.png" alt="MHADA portal">
-      <div class="body">
-        <div class="tagbar"><span class="badge">React</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span></div>
-      </div>
-      <footer>
-        <a class="btn small primary" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a>
-      </footer>
-    </article>
-
-    <!-- Criminal Face Detection -->
-    <article class="tile reveal" data-tags="ml">
-      <header>
-        <h3>Criminal Face Detection System</h3>
-        <p class="muted mt-1">Classical CV pipeline for detection & recognition with a webcam demo.</p>
-      </header>
-      <img src="images/criminal-1.png" alt="Criminal Face Detection">
-      <div class="body">
-        <div class="tagbar"><span class="badge">Python</span><span class="badge">OpenCV</span></div>
-      </div>
-      <footer>
-        <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-      </footer>
-    </article>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Skills -->
-<section id="skills" class="container py-4">
-  <div class="row between wrap">
-    <div>
-      <h2>Skills</h2>
-      <p class="muted">What I use to ship reliable software</p>
-    </div>
-  </div>
-  <div class="grid grid-auto mt-2">
-    <article class="card reveal">
-      <h3>Frontend</h3>
-      <p class="muted mt-1">Accessible, performant interfaces.</p>
-      <div class="row wrap mt-1">
-        <span class="badge">JavaScript/TypeScript</span><span class="badge">React</span><span class="badge">Next.js</span><span class="badge">Tailwind</span>
-      </div>
-      <div class="meter mt-2" aria-hidden="true"><span style="width:88%"></span></div>
-    </article>
-    <article class="card reveal">
-      <h3>Backend</h3>
-      <p class="muted mt-1">APIs, auth, data models.</p>
-      <div class="row wrap mt-1">
-        <span class="badge">Node.js</span><span class="badge">Express</span><span class="badge">FastAPI</span><span class="badge">PHP</span>
-      </div>
-      <div class="meter mt-2" aria-hidden="true"><span style="width:82%"></span></div>
-    </article>
-    <article class="card reveal">
-      <h3>Data & Infra</h3>
-      <p class="muted mt-1">Databases, CI/CD, containers.</p>
-      <div class="row wrap mt-1">
-        <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">MySQL</span><span class="badge">Docker</span><span class="badge">GitHub Actions</span>
-      </div>
-      <div class="meter mt-2" aria-hidden="true"><span style="width:74%"></span></div>
-    </article>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Experience -->
-<section id="experience" class="container py-4">
-  <h2>Experience</h2>
-  <div class="timeline mt-2">
-    <div class="tl reveal">
-      <div class="row between wrap">
-        <h3>Full‑Stack Developer (Projects)</h3>
-        <span class="muted">Varshi Tech & Freelance · 2024 — 2025</span>
-      </div>
-      <ul style="margin:8px 0 0 18px">
-        <li>Built responsive apps and dashboards with clean UX</li>
-        <li>Integrated REST APIs; optimised DB queries</li>
-        <li>Testing, debugging, and CI/CD for stable releases</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Education -->
-<section id="education" class="container py-4">
-  <h2>Education</h2>
-  <div class="grid grid-2 mt-2">
-    <article class="card reveal">
-      <h3>MSc Computer Science (Merit)</h3>
-      <p class="muted mt-1">University of Strathclyde · 2023 — 2024</p>
-    </article>
-    <article class="card reveal">
-      <h3>BE Computer Engineering (CGPI 7.61)</h3>
-      <p class="muted mt-1">University of Mumbai · 2019 — 2023</p>
-    </article>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- Contact -->
-<section id="contact" class="container py-4">
-  <h2>Contact</h2>
-  <article class="card mt-2 reveal">
+  </section>  <div class="divider mt-5"></div>  <!-- Projects -->  <section id="projects" class="py-4 reveal">
     <div class="row between wrap">
-      <p class="muted">Want to collaborate or have a role in mind? I’m open to roles across the UK (hybrid preferred).</p>
-      <div class="row wrap">
-        <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
-        <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn ghost" href="tel:+447767202154">Call</a>
+      <h2>Projects</h2>
+      <div class="filters" id="filters" aria-label="Project filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="fullstack">Full-Stack</button>
+        <button class="filter" data-filter="frontend">Frontend</button>
+        <button class="filter" data-filter="cv">Computer Vision</button>
+      </div>
+    </div><div class="mosaic" id="mosaic">
+  <!-- Featured: SimpleMoney -->
+  <article class="card-proj featured tilt" data-tags="fullstack">
+    <header>
+      <h3>SimpleMoney — Personal Finance Simplified</h3>
+      <p class="muted mt-1">Track income, expenses, and savings goals with a clean dashboard, monthly insights, and custom categories.</p>
+    </header>
+    <img src="images/simplemoney.png" alt="SimpleMoney dashboard">
+    <div class="body">
+      <div class="row wrap"><span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span><span class="badge">Chart.js</span></div>
+    </div>
+    <footer>
+      <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
+      <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
+    </footer>
+  </article>
+
+  <!-- Website Generator -->
+  <article class="card-proj tilt" data-tags="fullstack frontend">
+    <header>
+      <h3>Website Generator for Photographers</h3>
+      <p class="muted mt-1">MSc dissertation generating static portfolio sites from image metadata & quality metrics.</p>
+    </header>
+    <img src="images/wg-1.png" alt="Website Generator">
+    <div class="body"><span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">Jinja</span></div>
+    <footer><a class="btn small ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a></footer>
+  </article>
+
+  <!-- FitFusion -->
+  <article class="card-proj tilt" data-tags="fullstack frontend">
+    <header>
+      <h3>FitFusion — Health Platform</h3>
+      <p class="muted mt-1">Full-stack fitness app for workouts, nutrition, and goals with role-based access.</p>
+    </header>
+    <img src="images/fitfusion.png" alt="FitFusion">
+    <div class="body"><span class="badge">React</span><span class="badge">Node</span><span class="badge">MongoDB</span></div>
+    <footer><a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a></footer>
+  </article>
+
+  <!-- MHADA -->
+  <article class="card-proj tilt" data-tags="fullstack frontend">
+    <header>
+      <h3>MHADA Housing Lottery Portal</h3>
+      <p class="muted mt-1">Prototype portal for affordable housing lotteries with clear application flows & admin tools.</p>
+    </header>
+    <img src="images/mahada-cover.png" alt="MHADA portal">
+    <div class="body"><span class="badge">React</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span></div>
+    <footer><a class="btn small primary" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a></footer>
+  </article>
+
+  <!-- Criminal Face Detection -->
+  <article class="card-proj tilt" data-tags="cv">
+    <header>
+      <h3>Criminal Face Detection System</h3>
+    <p class="muted mt-1">Classical CV pipeline for detection & recognition with a webcam demo.</p>
+    </header>
+    <img src="images/criminal-1.png" alt="Criminal Face Detection">
+    <div class="body"><span class="badge">Python</span><span class="badge">OpenCV</span></div>
+    <footer><a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a></footer>
+  </article>
+</div>
+
+  </section>  <div class="divider"></div>  <!-- Skills -->  <section id="skills" class="py-4 reveal">
+    <div class="row between wrap">
+      <h2>Skills</h2><span class="muted">What I use day-to-day</span>
+    </div>
+    <div class="grid grid-auto mt-2">
+      <article class="soft">
+        <h3>Frontend</h3>
+        <p class="muted mt-1">Accessible, performant interfaces.</p>
+        <div class="row wrap mt-1">
+          <span class="badge">JavaScript/TypeScript</span><span class="badge">React</span><span class="badge">Next.js</span><span class="badge">Tailwind</span>
+        </div>
+        <div class="meter mt-2" aria-hidden="true"><span style="width:88%"></span></div>
+      </article>
+      <article class="soft">
+        <h3>Backend</h3>
+        <p class="muted mt-1">APIs, auth, data models.</p>
+        <div class="row wrap mt-1">
+          <span class="badge">Node.js</span><span class="badge">Express</span><span class="badge">FastAPI</span><span class="badge">PHP</span>
+        </div>
+        <div class="meter mt-2" aria-hidden="true"><span style="width:82%"></span></div>
+      </article>
+      <article class="soft">
+        <h3>Data & Infra</h3>
+        <p class="muted mt-1">Databases, CI/CD, containers.</p>
+        <div class="row wrap mt-1">
+          <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">MySQL</span><span class="badge">Docker</span><span class="badge">GitHub Actions</span>
+        </div>
+        <div class="meter mt-2" aria-hidden="true"><span style="width:74%"></span></div>
+      </article>
+    </div>
+  </section>  <div class="divider"></div>  <!-- Experience -->  <section id="experience" class="py-4 reveal">
+    <h2>Experience</h2>
+    <div class="timeline mt-2">
+      <div class="tl">
+        <div class="row between wrap">
+          <h3>Full-Stack Developer (Projects)</h3>
+          <span class="muted">Varshi Tech & Freelance · 2024 — 2025</span>
+        </div>
+        <ul style="margin:8px 0 0 18px">
+          <li>Built responsive apps and dashboards with clean UX</li>
+          <li>Integrated REST APIs; optimised DB queries</li>
+          <li>Testing, debugging, and CI/CD for stable releases</li>
+        </ul>
       </div>
     </div>
-  </article>
-</section>
+  </section>  <div class="divider"></div>  <!-- Education -->  <section id="education" class="py-4 reveal">
+    <h2>Education</h2>
+    <div class="grid grid-2 mt-2">
+      <article class="soft">
+        <h3>MSc Computer Science (Merit)</h3>
+        <p class="muted mt-1">University of Strathclyde · 2023 — 2024</p>
+      </article>
+      <article class="soft">
+        <h3>BE Computer Engineering (CGPI 7.61)</h3>
+        <p class="muted mt-1">University of Mumbai · 2019 — 2023</p>
+      </article>
+    </div>
+  </section>  <div class="divider"></div>  <!-- Contact -->  <section id="contact" class="py-4 reveal">
+    <h2>Contact</h2>
+    <article class="card mt-2">
+      <div class="row between wrap">
+        <p class="muted">Open to graduate & junior SWE roles across the UK (hybrid preferred). Let’s talk.</p>
+        <div class="row wrap">
+          <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
+          <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
+          <button class="btn ghost" id="copyEmail" aria-label="Copy email">Copy email</button>
+        </div>
+      </div>
+    </article>
+  </section>  <div class="divider mt-5"></div>
+  <footer class="container">
+    © <span id="year"></span> Krish Dasani — <span class="muted">All rights reserved.</span>
+  </footer>
+</main><script>
+/* Dynamic year */
+document.getElementById('year').textContent = new Date().getFullYear();
 
-<div class="divider"></div>
-<footer class="container">© <span id="year"></span> Krish Dasani — <span class="muted">All rights reserved.</span></footer>
+/* Overlay drawer */
+const overlay = document.getElementById('overlay');
+const openBtn = document.getElementById('openMenu');
+const closeBtn = document.getElementById('closeMenu');
+function openDrawer(){ overlay.style.display='block'; overlay.setAttribute('aria-hidden','false'); }
+function closeDrawer(){ overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); }
+openBtn?.addEventListener('click', openDrawer);
+closeBtn?.addEventListener('click', closeDrawer);
+overlay?.addEventListener('click', e => { if(e.target===overlay) closeDrawer(); });
 
-  </main>  <script>
-    // dynamic year
-    document.getElementById('year').textContent = new Date().getFullYear();
+/* Smooth scroll + close drawer on nav click */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id=a.getAttribute('href'); const tgt=document.querySelector(id);
+    if(tgt){ e.preventDefault(); tgt.scrollIntoView({behavior:'smooth'}); history.pushState(null,'',id); }
+    closeDrawer();
+  });
+});
 
-    // Smooth scroll for in-page anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href'); const tgt=document.querySelector(id);
-        if(tgt){ e.preventDefault(); tgt.scrollIntoView({behavior:'smooth'}); history.pushState(null,'',id);} 
-        // close drawer if open
-        closeDrawer();
-      });
-    });
+/* Reveal on scroll */
+const io = new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Drawer controls
-    const burger=document.getElementById('burger');
-    const overlay=document.getElementById('overlay');
-    const closeBtn=document.getElementById('close');
-    function openDrawer(){ overlay.style.display='block'; overlay.setAttribute('aria-hidden','false'); burger.setAttribute('aria-expanded','true'); }
-    function closeDrawer(){ overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); burger.setAttribute('aria-expanded','false'); }
-    burger?.addEventListener('click',()=>{ const open=burger.getAttribute('aria-expanded')==='true'; open?closeDrawer():openDrawer(); });
-    closeBtn?.addEventListener('click',closeDrawer);
-    overlay?.addEventListener('click',e=>{ if(e.target===overlay) closeDrawer(); });
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+/* Project filters */
+const filters = document.getElementById('filters');
+filters?.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.filter'); if(!btn) return;
+  filters.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const tag = btn.dataset.filter;
+  document.querySelectorAll('.card-proj').forEach(card=>{
+    const tags = card.dataset.tags || '';
+    const show = tag==='all' || tags.includes(tag);
+    card.style.display = show ? '' : 'none';
+  });
+});
 
-    // Project filter buttons
-    const filters=[...document.querySelectorAll('.filter')];
-    const cards=[...document.querySelectorAll('.tile')];
-    filters.forEach(btn=>btn.addEventListener('click',()=>{
-      filters.forEach(b=>b.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-      const tag=btn.dataset.filter;
-      cards.forEach(c=>{
-        const tags=c.dataset.tags||'';
-        const show= tag==='all' || tags.includes(tag);
-        c.style.display= show? 'block':'none';
-      });
-    }));
+/* Tilt hover (subtle) */
+const clamp=(n,min,max)=>Math.max(min,Math.min(n,max));
+document.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('mousemove', (e)=>{
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width;
+    const y = (e.clientY - r.top)/r.height;
+    const rx = clamp((.5 - y)*8, -6, 6);
+    const ry = clamp((x - .5)*8, -6, 6);
+    card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+  });
+  card.addEventListener('mouseleave', ()=> card.style.transform='perspective(800px) translateZ(0)');
+});
 
-    // Simple 3D tilt effect on project tiles
-    const tilts=document.querySelectorAll('.tile');
-    tilts.forEach(card=>{
-      card.addEventListener('mousemove',e=>{
-        const r=card.getBoundingClientRect();
-        const x=e.clientX - r.left, y=e.clientY - r.top;
-        const rx = ((y/r.height)-0.5)*6; // rotateX
-        const ry = ((x/r.width)-0.5)*-6; // rotateY
-        card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-      });
-      card.addEventListener('mouseleave',()=>{ card.style.transform='perspective(900px) rotateX(0) rotateY(0)'; });
-    });
-
-    // Scroll reveal
-    const io=new IntersectionObserver((ents)=>{
-      ents.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target);} });
-    },{threshold:0.08});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  </script></body>
+/* Copy email */
+document.getElementById('copyEmail')?.addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText('krishdasani123@gmail.com');
+    const btn = document.getElementById('copyEmail');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.textContent=old, 1200);
+  }catch(e){}
+});
+</script></body>
 </html>
