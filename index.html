@@ -4,108 +4,115 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Krish Dasani — Portfolio</title>
-<meta name="description" content="Full-Stack Developer focused on fast, accessible web apps."/>
+<meta name="description" content="Editorial portfolio of Krish Dasani — Full-Stack Developer."/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+/* ——— Tokens (same palette you liked) ——— */
 :root{
   --bg:#ffffff;
-  --ink:#0f172a;       /* slate-900 */
-  --muted:#5b6b7b;     /* slate-500 */
-  --rule:#e6edf3;      /* soft border */
-  --card:#f8fafc;      /* surface */
-  --accent:#0ea5e9;    /* sky-500 */
-  --accent2:#10b981;   /* emerald-500 */
-  --radius:16px;
-  --shadow:0 12px 32px rgba(2,6,23,.10);
+  --ink:#0a0a0a;
+  --muted:#6b7280;  /* slate-500 */
+  --rule:#e5e7eb;  /* slate-200 */
+  --accent:#0ea5e9;/* sky-500 */
 }
+/* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
-body{
-  margin:0;font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto;
-  color:var(--ink);
-  background:
-    radial-gradient(900px 520px at -10% 0%, #ecfeff 0%, transparent 45%),
-    radial-gradient(860px 520px at 110% -10%, #f0f9ff 0%, transparent 50%),
-    #fff;
-}
-img{max-width:100%;display:block;border-radius:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 Inter,system-ui,-apple-system,Segoe UI,Roboto}
+img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-h1,h2,h3{font-family:Outfit,Inter,sans-serif}
-h1{font-weight:800;font-size:clamp(28px,4.4vw,46px);line-height:1.1;margin:0}
-h2{font-weight:800;font-size:1.7rem;margin:0 0 8px}
-h3{font-weight:700;margin:0}
-.container{max-width:1120px;margin:0 auto;padding:0 18px}
-.row{display:flex;align-items:center;gap:12px}
-.wrap{flex-wrap:wrap}
-.between{justify-content:space-between}
-.mt-1{margin-top:8px}.mt-2{margin-top:16px}.mt-3{margin-top:24px}.mt-4{margin-top:32px}.mt-5{margin-top:48px}
-.py-2{padding:16px 0}.py-3{padding:28px 0}.py-4{padding:42px 0}
-.muted{color:var(--muted)}
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid var(--rule);font-size:.86rem;margin:3px 6px 0 0}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--rule);font-weight:700;transition:.18s}
-.btn:hover{transform:translateY(-1px)}
-.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:0;box-shadow:var(--shadow)}
-.btn.ghost{background:#fff}
-.btn.small{padding:7px 11px;border-radius:10px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
-.card{background:#fff;border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow)}
-.soft{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow)}
+a:focus-visible,button:focus-visible{outline:2px dashed var(--accent);outline-offset:3px}
+.container{max-width:1140px;margin:0 auto;padding:0 18px}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
 
-/* NAV (glass) */
-.navwrap{position:sticky;top:0;z-index:60}
-.nav{backdrop-filter:saturate(160%) blur(8px);background:rgba(255,255,255,.75);border-bottom:1px solid var(--rule)}
+/* ——— Nav (top) ——— */
+.navwrap{position:sticky;top:0;z-index:50}
+.nav{
+  backdrop-filter:saturate(160%) blur(8px);
+  background:rgba(255,255,255,.75);
+  border-bottom:1px solid var(--rule);
+}
 .nav .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.brand{font-family:Outfit,Inter,sans-serif;font-weight:800;letter-spacing:.2px}
-.navlinks a{margin-left:22px;color:var(--muted);font-weight:700}
+.brand{font:700 20px/1 Newsreader,serif;letter-spacing:.2px}
+.navlinks a{margin-left:22px;color:var(--muted);font-weight:600}
 .navlinks a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:8px 12px;font-weight:600;background:#fff}
+.btn.primary{background:var(--ink);color:#fff}
 .hamburger{display:none;flex-direction:column;gap:5px;border:0;background:transparent;cursor:pointer}
-.hamburger span{width:26px;height:3px;border-radius:2px;background:#1f2937}
-@media (max-width:920px){.navlinks{display:none}.hamburger{display:flex}}
+.hamburger span{width:26px;height:3px;border-radius:2px;background:#111}
+@media (max-width:900px){.navlinks{display:none}.hamburger{display:flex}}
 
 /* Drawer */
-.overlay{display:none;position:fixed;inset:0;background:rgba(2,6,23,.15);backdrop-filter:blur(2px);z-index:80}
-.drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:320px;background:#fff;border-left:1px solid var(--rule);box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:8px}
-.drawer a{padding:12px;border-radius:10px;font-weight:700;color:var(--muted)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.15);backdrop-filter:blur(2px);z-index:60}
+.drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:320px;background:#fff;border-left:1px solid var(--rule);padding:18px;display:flex;flex-direction:column;gap:8px}
+.drawer a{padding:12px;border-radius:10px;font-weight:600;color:var(--muted)}
 .drawer a:hover{background:#f5f7fb;color:var(--ink)}
 
-/* HERO (split + subtle accent line) */
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
-.hero .rail{height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px}
-.hero .panel{padding:14px}
-@media (max-width:920px){.hero{grid-template-columns:1fr}}
+/* ——— Hero ——— */
+.hero{padding:42px 0 14px}
+.eyebrow{font:600 .8rem/1 Inter;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(28px,5vw,48px)/1.15 Newsreader,serif;margin:8px 0 12px}
+.sub{color:var(--muted);max-width:70ch}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badge{border:1px solid var(--ink);padding:4px 10px;border-radius:999px;font-size:.9rem}
 
-/* PROJECTS */
-.filters{position:relative;display:flex;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule)}
-.tab{position:relative;padding:10px 4px 12px;border:0;background:transparent;font-weight:800;color:var(--muted);cursor:pointer}
-.tab.active{color:var(--ink)}
-.slider{position:absolute;left:0;bottom:-1px;height:3px;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:transform .25s,width .25s}
-.grid-proj{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);margin-top:16px}
-.proj{grid-column:span 6;display:flex;flex-direction:column;overflow:hidden}
-.proj.featured{grid-column:span 12}
-.proj .frame{position:relative;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
-.proj .frame::after{/* subtle focus ring on hover */content:'';position:absolute;inset:0;border-radius:14px;border:2px solid transparent;transition:border-color .2s}
-.proj:hover .frame::after{border-color:#dbeafe}
-.proj .body{padding:12px 4px}
-.proj footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.proj .meta{color:var(--muted);font-size:.95rem}
-@media (max-width:1120px){.proj{grid-column:span 12}}
+/* ——— Featured strip ——— */
+.strip{margin:28px 0;border:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr}
+.strip .media{border-right:1px solid var(--ink)}
+.strip .media img{border:0;height:100%;object-fit:cover}
+.strip .body{padding:16px}
+.strip h2{font:700 1.3rem Newsreader,serif;margin:0 0 6px}
+.strip .meta{color:var(--muted)}
+.strip .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media (max-width:900px){.strip{grid-template-columns:1fr}.strip .media{border-right:0;border-bottom:1px solid var(--ink)}}
 
-/* SKILLS */
-.skills{display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr))}
-@media (max-width:920px){.skills{grid-template-columns:1fr}}
-.skill{padding:16px}
-.meter{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
-.meter>span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+/* ——— Sections ——— */
+.section{padding:24px 0}
+.section h3.sec{font:700 1.4rem Newsreader,serif;margin:0 0 8px}
 
-/* TIMELINE */
-.timeline{position:relative;padding-left:28px}
-.timeline:before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--rule)}
-.tl{position:relative;padding:14px 0}
-.tl:before{content:'';position:absolute;left:3px;top:18px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
+/* ——— Projects ——— */
+.list{border-top:1px solid var(--ink)}
+.item{border-bottom:1px solid var(--rule)}
+.item > button{
+  all:unset;display:grid;grid-template-columns:90px 1fr 120px;gap:18px;align-items:center;width:100%;cursor:pointer;padding:16px 0;
+}
+@media (max-width:800px){.item > button{grid-template-columns:1fr}}
+.item code{color:#111827;background:#f5f7fb;border:1px solid var(--rule);padding:2px 6px;border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:.88rem}
+.item h4{font:700 1.05rem Newsreader,serif;margin:0}
+.item .meta{color:var(--muted);font-size:.95rem}
+.chev{justify-self:end;transition:transform .2s}
+.item[open] .chev{transform:rotate(90deg)}
+.panel{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:0 0 16px}
+@media (max-width:800px){.panel{grid-template-columns:1fr}}
+.media{padding:6px 0}
+.media img{border:1px solid var(--rule)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tag{border:1px dashed var(--ink);padding:4px 8px;border-radius:6px;font-size:.88rem}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.link{display:inline-flex;gap:8px;border-bottom:1px solid var(--ink);padding-bottom:2px}
+.link:hover{color:var(--accent);border-color:var(--accent)}
 
-/* FOOTER */
-footer{border-top:1px solid var(--rule);padding:16px 0;color:var(--muted)}
+/* ——— Skills (newspaper rows) ——— */
+.table{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:200px 1fr;gap:18px;border-bottom:1px solid var(--rule);padding:14px 0}
+@media (max-width:700px){.row{grid-template-columns:1fr}}
+.row h5{font:700 1rem Newsreader,serif;margin:0}
+
+/* ——— Experience ——— */
+.timeline{border-top:1px solid var(--ink)}
+.entry{padding:16px 0;border-bottom:1px solid var(--rule)}
+.when{color:var(--muted);font-size:.95rem}
+
+/* ——— Education ——— */
+.edugrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:700px){.edugrid{grid-template-columns:1fr}}
+.edu{border:1px solid var(--ink);padding:14px}
+
+/* ——— Footer ——— */
+.sitefoot{border-top:1px solid var(--ink);padding:16px 0;color:var(--muted);margin-top:28px}
+small a{border-bottom:1px solid var(--muted)}
 </style>
 </head>
 <body>
@@ -131,10 +138,7 @@ footer{border-top:1px solid var(--rule);padding:16px 0;color:var(--muted)}
 <!-- Drawer -->
 <div class="overlay" id="overlay" aria-hidden="true">
   <nav class="drawer" role="dialog" aria-label="Mobile Navigation">
-    <div class="row between" style="margin-bottom:6px">
-      <div class="brand">Menu</div>
-      <button class="hamburger" id="closeMenu" aria-label="Close menu"><span></span><span></span><span></span></button>
-    </div>
+    <div class="brand" style="margin-bottom:8px">Menu</div>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
     <a href="#experience">Experience</a>
@@ -144,269 +148,247 @@ footer{border-top:1px solid var(--rule);padding:16px 0;color:var(--muted)}
   </nav>
 </div>
 
-<main class="container py-3">
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="rail" aria-hidden="true"></div>
-      <div class="panel">
-        <h1>Full-Stack developer crafting <span style="background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent">fast, accessible</span> web apps.</h1>
-        <p class="muted mt-2">I build end-to-end solutions with clean UI, strong DX, and performance as a habit — UK-based, open to grad & junior SWE roles.</p>
-        <div class="row wrap mt-2">
-          <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">Python</span><span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">CI/CD</span>
-        </div>
-        <div class="row wrap mt-3">
-          <a class="btn primary" href="#projects">See projects</a>
-          <a class="btn ghost" href="mailto:krishdasani123@gmail.com">Email</a>
-          <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
-      </div>
+<main>
+  <header class="hero container">
+    <div class="eyebrow">Profile</div>
+    <h1>I design & build clean, fast, human-friendly web apps.</h1>
+    <p class="sub">Focused on performance, accessibility, and developer experience. I work end-to-end across React/Node and Python with production-minded delivery (testing, CI/CD). Open to graduate & junior SWE roles (UK · hybrid).</p>
+    <div class="badges">
+      <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">Python</span>
+      <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">CI/CD</span>
     </div>
-    <aside class="card" style="padding:12px">
-      <img src="images/simplemoney.png" alt="SimpleMoney preview">
-      <div class="row wrap" style="padding:12px 6px 4px">
-        <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">SimpleMoney GitHub</a>
-        <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
-      </div>
-    </aside>
-  </section>
+  </header>
 
-  <div class="divider mt-5"></div>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="py-4">
-    <h2>Projects</h2>
-
-    <!-- Filter tabs with underline slider -->
-    <div class="filters mt-1" id="filterBar" role="tablist" aria-label="Project filters">
-      <button class="tab active" role="tab" aria-selected="true" data-filter="all">All</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="fullstack">Full-Stack</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="frontend">Frontend</button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="cv">Computer Vision</button>
-      <span class="slider" id="slider" aria-hidden="true"></span>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid-proj mt-2" id="projGrid">
-      <!-- FEATURED SimpleMoney -->
-      <article class="proj featured" data-tags="fullstack">
-        <div class="frame">
-          <img src="images/simplemoney.png" alt="SimpleMoney dashboard">
+  <!-- Featured strip -->
+  <section class="container">
+    <article class="strip">
+      <div class="media"><img src="images/simplemoney.png" alt="SimpleMoney preview"></div>
+      <div class="body">
+        <h2>Featured — SimpleMoney</h2>
+        <p class="meta">Personal finance simplified: track income, expenses, and savings goals with monthly insights and custom categories.</p>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Chart.js</span>
         </div>
-        <div class="body">
-          <h3>SimpleMoney — Personal Finance Simplified</h3>
-          <p class="meta mt-1">Track income, expenses, and savings goals with monthly insights & custom categories.</p>
-          <div class="row wrap mt-1">
-            <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">MongoDB</span><span class="badge">Chart.js</span>
-          </div>
-          <footer class="mt-1">
-            <a class="btn small ghost" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="btn small primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
-          </footer>
-        </div>
-      </article>
-
-      <!-- Website Generator -->
-      <article class="proj" data-tags="fullstack frontend">
-        <div class="frame">
-          <img src="images/wg-1.png" alt="Website Generator preview">
-        </div>
-        <div class="body">
-          <h3>Website Generator for Photographers</h3>
-          <p class="meta mt-1">MSc dissertation: static portfolio sites from metadata & quality metrics.</p>
-          <div class="row wrap mt-1"><span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">Jinja</span></div>
-          <footer class="mt-1">
-            <a class="btn small ghost" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a>
-          </footer>
-        </div>
-      </article>
-
-      <!-- FitFusion -->
-      <article class="proj" data-tags="fullstack frontend">
-        <div class="frame">
-          <img src="images/fitfusion.png" alt="FitFusion screenshot">
-        </div>
-        <div class="body">
-          <h3>FitFusion — Health Platform</h3>
-          <p class="meta mt-1">Full-stack app for workouts, nutrition, and goals with role-based access.</p>
-          <div class="row wrap mt-1"><span class="badge">React</span><span class="badge">Node</span><span class="badge">MongoDB</span></div>
-          <footer class="mt-1">
-            <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-          </footer>
-        </div>
-      </article>
-
-      <!-- MHADA -->
-      <article class="proj" data-tags="fullstack frontend">
-        <div class="frame">
-          <img src="images/mahada-cover.png" alt="MHADA portal">
-        </div>
-        <div class="body">
-          <h3>MHADA Housing Lottery Portal</h3>
-          <p class="meta mt-1">Prototype portal for affordable housing lotteries with clear flows & admin tools.</p>
-          <div class="row wrap mt-1"><span class="badge">React</span><span class="badge">FastAPI</span><span class="badge">PostgreSQL</span></div>
-          <footer class="mt-1">
-            <a class="btn small primary" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a>
-          </footer>
-        </div>
-      </article>
-
-      <!-- Criminal Face Detection -->
-      <article class="proj" data-tags="cv">
-        <div class="frame">
-          <img src="images/criminal-1.png" alt="Criminal Face Detection">
-        </div>
-        <div class="body">
-          <h3>Criminal Face Detection System</h3>
-          <p class="meta mt-1">Classical CV pipeline for face detection & recognition with a webcam demo.</p>
-          <div class="row wrap mt-1"><span class="badge">Python</span><span class="badge">OpenCV</span></div>
-          <footer class="mt-1">
-            <a class="btn small ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-          </footer>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- SKILLS -->
-  <section id="skills" class="py-4">
-    <h2>Skills</h2>
-    <div class="skills mt-2">
-      <article class="soft skill">
-        <h3>Frontend</h3>
-        <p class="muted mt-1">Accessible, performant interfaces.</p>
-        <div class="row wrap mt-1">
-          <span class="badge">JavaScript/TypeScript</span><span class="badge">React</span><span class="badge">Next.js</span><span class="badge">Tailwind</span>
-        </div>
-        <div class="meter mt-2" aria-hidden="true"><span style="width:88%"></span></div>
-      </article>
-      <article class="soft skill">
-        <h3>Backend</h3>
-        <p class="muted mt-1">APIs, auth, data models.</p>
-        <div class="row wrap mt-1">
-          <span class="badge">Node.js</span><span class="badge">Express</span><span class="badge">FastAPI</span><span class="badge">PHP</span>
-        </div>
-        <div class="meter mt-2" aria-hidden="true"><span style="width:82%"></span></div>
-      </article>
-      <article class="soft skill">
-        <h3>Data & Infra</h3>
-        <p class="muted mt-1">Databases, CI/CD, containers.</p>
-        <div class="row wrap mt-1">
-          <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">MySQL</span><span class="badge">Docker</span><span class="badge">GitHub Actions</span>
-        </div>
-        <div class="meter mt-2" aria-hidden="true"><span style="width:74%"></span></div>
-      </article>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="py-4">
-    <h2>Experience</h2>
-    <div class="timeline mt-2">
-      <div class="tl">
-        <div class="row between wrap">
-          <h3>Full-Stack Developer (Projects)</h3>
-          <span class="muted">Varshi Tech & Freelance · 2024 — 2025</span>
-        </div>
-        <ul style="margin:8px 0 0 18px">
-          <li>Built responsive apps and dashboards with clean UX</li>
-          <li>Integrated REST APIs; optimised DB queries</li>
-          <li>Testing, debugging, and CI/CD for stable releases</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- EDUCATION -->
-  <section id="education" class="py-4">
-    <h2>Education</h2>
-    <div class="row wrap mt-2" style="gap:16px">
-      <article class="soft" style="padding:16px;flex:1 1 320px">
-        <h3>MSc Computer Science (Merit)</h3>
-        <p class="muted mt-1">University of Strathclyde · 2023 — 2024</p>
-      </article>
-      <article class="soft" style="padding:16px;flex:1 1 320px">
-        <h3>BE Computer Engineering (CGPI 7.61)</h3>
-        <p class="muted mt-1">University of Mumbai · 2019 — 2023</p>
-      </article>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CONTACT -->
-  <section id="contact" class="py-4">
-    <h2>Contact</h2>
-    <article class="card" style="padding:16px">
-      <div class="row between wrap">
-        <p class="muted">Open to graduate & junior SWE roles across the UK (hybrid preferred). Let’s talk.</p>
-        <div class="row wrap">
-          <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
-          <a class="btn ghost" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
-          <button class="btn ghost" id="copyEmail" aria-label="Copy email">Copy email</button>
+        <div class="actions">
+          <a class="btn" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
         </div>
       </div>
     </article>
   </section>
 
-  <div class="divider mt-5"></div>
-  <footer class="container">© <span id="year"></span> Krish Dasani · <span class="muted">All rights reserved.</span></footer>
+  <!-- Projects -->
+  <section id="projects" class="section container">
+    <h3 class="sec">Projects</h3>
+    <ul class="list" aria-label="Selected Projects">
+      <!-- 1 Website Generator -->
+      <li class="item">
+        <button aria-expanded="false">
+          <code>01</code>
+          <div>
+            <h4>Website Generator for Photographers</h4>
+            <div class="meta">MSc dissertation — generates static portfolio sites from metadata & quality metrics.</div>
+          </div>
+          <span class="chev">›</span>
+        </button>
+        <div class="panel" hidden>
+          <div></div>
+          <div>
+            <div class="media"><img src="images/wg-1.png" alt="Website Generator"/></div>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Jinja</span></div>
+            <ul class="disc">
+              <li>Processed EXIF and quality metrics to curate galleries</li>
+              <li>Templated, responsive exports ready for Netlify/Vercel</li>
+            </ul>
+            <div class="links">
+              <a class="link" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 2 FitFusion -->
+      <li class="item">
+        <button aria-expanded="false">
+          <code>02</code>
+          <div>
+            <h4>FitFusion — Health Platform</h4>
+            <div class="meta">Workouts, nutrition, and goals with role-based access and charts.</div>
+          </div>
+          <span class="chev">›</span>
+        </button>
+        <div class="panel" hidden>
+          <div></div>
+          <div>
+            <div class="media"><img src="images/fitfusion.png" alt="FitFusion"/></div>
+            <div class="tags"><span class="tag">React</span><span class="tag">Node</span><span class="tag">MongoDB</span></div>
+            <ul class="disc">
+              <li>Modular front-end + JWT auth</li>
+              <li>Dashboards with charts & progress tracking</li>
+            </ul>
+            <div class="links">
+              <a class="link" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 3 MHADA -->
+      <li class="item">
+        <button aria-expanded="false">
+          <code>03</code>
+          <div>
+            <h4>MHADA Housing Lottery Portal</h4>
+            <div class="meta">End-to-end portal prototype for affordable housing lotteries.</div>
+          </div>
+          <span class="chev">›</span>
+        </button>
+        <div class="panel" hidden>
+          <div></div>
+          <div>
+            <div class="media"><img src="images/mahada-cover.png" alt="MHADA portal"/></div>
+            <div class="tags"><span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span></div>
+            <ul class="disc">
+              <li>Application flow, eligibility checks, admin dashboard</li>
+              <li>Emphasis on clarity, validation, and performance</li>
+            </ul>
+            <div class="links">
+              <a class="link" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 4 Criminal Face Detection -->
+      <li class="item">
+        <button aria-expanded="false">
+          <code>04</code>
+          <div>
+            <h4>Criminal Face Detection System</h4>
+            <div class="meta">Bachelor’s final-year project using classical CV techniques.</div>
+          </div>
+          <span class="chev">›</span>
+        </button>
+        <div class="panel" hidden>
+          <div></div>
+          <div>
+            <div class="media"><img src="images/criminal-1.png" alt="Criminal Face Detection"/></div>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span></div>
+            <ul class="disc">
+              <li>Face detection & recognition pipeline</li>
+              <li>Live demo with webcam feed and reporting</li>
+            </ul>
+            <div class="links">
+              <a class="link" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section container">
+    <h3 class="sec">Skills</h3>
+    <div class="table">
+      <div class="row">
+        <h5>Frontend</h5>
+        <div class="skill-tags">
+          <span class="tag">JavaScript/TypeScript</span><span class="tag">React</span>
+          <span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Accessibility</span>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Backend</h5>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">FastAPI</span><span class="tag">PHP</span>
+        </div>
+      </div>
+      <div class="row">
+        <h5>Data & Infra</h5>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">MySQL</span>
+          <span class="tag">Docker</span><span class="tag">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section container">
+    <h3 class="sec">Experience</h3>
+    <div class="timeline">
+      <div class="entry">
+        <div class="when">2024 — 2025 · Varshi Tech & Freelance</div>
+        <strong>Full-Stack Developer (Projects)</strong>
+        <ul class="disc">
+          <li>Built professional, responsive apps and dashboards</li>
+          <li>Integrated REST APIs; optimized database queries</li>
+          <li>Tested, debugged, and shipped with CI/CD</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="section container">
+    <h3 class="sec">Education</h3>
+    <div class="edugrid">
+      <article class="edu">
+        <strong>MSc Computer Science (Merit)</strong><br/>
+        <span class="muted">University of Strathclyde · 2023 — 2024</span>
+      </article>
+      <article class="edu">
+        <strong>BE Computer Engineering (CGPI 7.61)</strong><br/>
+        <span class="muted">University of Mumbai · 2019 — 2023</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section container">
+    <h3 class="sec">Contact</h3>
+    <p class="sub">Open to graduate & junior SWE roles across the UK (hybrid preferred).</p>
+    <div class="badges" style="margin-top:12px">
+      <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer class="sitefoot container">
+    <small>© <span id="year"></span> Krish Dasani · <a href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">CV</a></small>
+  </footer>
 </main>
 
 <script>
-// year
+// Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// drawer
+// Drawer
 const overlay=document.getElementById('overlay');
 document.getElementById('openMenu')?.addEventListener('click',()=>{overlay.style.display='block';overlay.setAttribute('aria-hidden','false')});
-document.getElementById('closeMenu')?.addEventListener('click',()=>{overlay.style.display='none';overlay.setAttribute('aria-hidden','true')});
-overlay?.addEventListener('click',e=>{if(e.target===overlay){overlay.style.display='none';overlay.setAttribute('aria-hidden','true')}});
+overlay?.addEventListener('click',e=>{ if(e.target===overlay) { overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); }});
 
-// smooth scroll + close drawer on nav tap
+// Smooth scroll + close drawer on nav tap
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
-    const id=a.getAttribute('href');const t=document.querySelector(id);
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});history.pushState(null,'',id);}
+    const id=a.getAttribute('href'); const t=document.querySelector(id);
+    if(t){e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); history.pushState(null,'',id);}
     overlay?.setAttribute('aria-hidden','true'); if(overlay) overlay.style.display='none';
   });
 });
 
-// filter slider + filtering
-const bar=document.getElementById('filterBar');
-const slider=document.getElementById('slider');
-function moveSlider(btn){
-  const r=btn.getBoundingClientRect(), pr=bar.getBoundingClientRect();
-  slider.style.width = r.width+'px';
-  slider.style.transform = `translateX(${r.left-pr.left}px)`;
-}
-function applyFilter(filter){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.filter===filter || (filter==='all'&&t.dataset.filter==='all')));
-  document.querySelectorAll('.proj').forEach(card=>{
-    const tags = card.dataset.tags || '';
-    card.style.display = (filter==='all' || tags.includes(filter)) ? '' : 'none';
+// Project inline reveal (accordion-lite)
+const items = document.querySelectorAll('.item');
+items.forEach((li, i)=>{
+  const btn=li.querySelector('button'); const panel=li.querySelector('.panel');
+  btn.addEventListener('click',()=>{
+    const open = btn.getAttribute('aria-expanded')==='true';
+    items.forEach(p=>{ p.querySelector('.panel').hidden=true; p.querySelector('button').setAttribute('aria-expanded','false'); p.removeAttribute('open'); });
+    if(!open){ panel.hidden=false; btn.setAttribute('aria-expanded','true'); li.setAttribute('open',''); }
   });
-  const active = [...document.querySelectorAll('.tab')].find(t=>t.dataset.filter===filter);
-  if(active) moveSlider(active);
-}
-bar?.addEventListener('click',e=>{
-  const btn=e.target.closest('.tab'); if(!btn) return;
-  applyFilter(btn.dataset.filter);
 });
-window.addEventListener('load',()=>{
-  const active=document.querySelector('.tab.active'); if(active) moveSlider(active);
-});
-
-// copy email
-document.getElementById('copyEmail')?.addEventListener('click',async()=>{
-  try{await navigator.clipboard.writeText('krishdasani123@gmail.com');
-    const b=document.getElementById('copyEmail'); const old=b.textContent; b.textContent='Copied!'; setTimeout(()=>b.textContent=old,1200);
-  }catch(e
+</script>
+</body>
+</html>
