@@ -1,394 +1,407 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Krish Dasani — Portfolio</title>
-<meta name="description" content="Editorial portfolio of Krish Dasani — Full-Stack Developer."/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krish Dasani | Portfolio</title>
+  <style>
+    :root{
+      --dark-navy:#020c1b; --navy:#0a192f; --light-navy:#112240; --lightest-navy:#233554;
+      --navy-shadow:rgba(2,12,27,.7); --dark-slate:#495670; --slate:#8892b0; --light-slate:#a8b2d1;
+      --lightest-slate:#ccd6f6; --white:#e6f1ff; --accent:#64ffda;
+      --font-sans:'Inter', -apple-system, system-ui, sans-serif;
+      --font-mono:'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:var(--font-sans);background:var(--navy);color:var(--slate);font-size:18px;line-height:1.6;overflow-x:hidden}
 
-<style>
-/* ——— Tokens (same palette you liked) ——— */
-:root{
-  --bg:#ffffff;
-  --ink:#0a0a0a;
-  --muted:#6b7280;  /* slate-500 */
-  --rule:#e5e7eb;  /* slate-200 */
-  --accent:#0ea5e9;/* sky-500 */
-}
-/* Base */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 Inter,system-ui,-apple-system,Segoe UI,Roboto}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-a:focus-visible,button:focus-visible{outline:2px dashed var(--accent);outline-offset:3px}
-.container{max-width:1140px;margin:0 auto;padding:0 18px}
-hr{border:0;border-top:1px solid var(--rule);margin:0}
+    /* Ambient cursor glow */
+    .cursor-glow{
+      position:fixed; inset:auto auto 0 0; pointer-events:none; z-index:0;
+      width:44vmax; height:44vmax; border-radius:50%;
+      background:radial-gradient(closest-side, rgba(100,255,218,0.10), rgba(100,255,218,0.06) 40%, transparent 70%);
+      transform:translate(-50%,-50%); filter:blur(36px); opacity:.65;
+      mix-blend-mode:screen; transition:opacity .2s ease;
+    }
 
-/* ——— Nav (top) ——— */
-.navwrap{position:sticky;top:0;z-index:50}
-.nav{
-  backdrop-filter:saturate(160%) blur(8px);
-  background:rgba(255,255,255,.75);
-  border-bottom:1px solid var(--rule);
-}
-.nav .inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.brand{font:700 20px/1 Newsreader,serif;letter-spacing:.2px}
-.navlinks a{margin-left:22px;color:var(--muted);font-weight:600}
-.navlinks a:hover{color:var(--ink)}
-.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:8px 12px;font-weight:600;background:#fff}
-.btn.primary{background:var(--ink);color:#fff}
-.hamburger{display:none;flex-direction:column;gap:5px;border:0;background:transparent;cursor:pointer}
-.hamburger span{width:26px;height:3px;border-radius:2px;background:#111}
-@media (max-width:900px){.navlinks{display:none}.hamburger{display:flex}}
+    .container{max-width:1000px;margin:0 auto;padding:0 50px;position:relative;z-index:1}
+    @media (max-width:768px){.container{padding:0 25px}}
 
-/* Drawer */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.15);backdrop-filter:blur(2px);z-index:60}
-.drawer{position:absolute;right:0;top:0;bottom:0;width:78%;max-width:320px;background:#fff;border-left:1px solid var(--rule);padding:18px;display:flex;flex-direction:column;gap:8px}
-.drawer a{padding:12px;border-radius:10px;font-weight:600;color:var(--muted)}
-.drawer a:hover{background:#f5f7fb;color:var(--ink)}
+    /* Header & Navigation */
+    header{position:fixed;top:0;left:0;right:0;z-index:10;background:rgba(10,25,47,.85);backdrop-filter:blur(10px);
+      transition:box-shadow .25s ease}
+    header.scrolled{box-shadow:0 10px 30px -15px var(--navy-shadow)}
+    .header-container{display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:0 auto;padding:20px 50px}
+    @media (max-width:768px){.header-container{padding:20px 25px}}
+    .logo{color:var(--accent);font-family:var(--font-mono);font-size:24px;text-decoration:none}
 
-/* ——— Hero ——— */
-.hero{padding:42px 0 14px}
-.eyebrow{font:600 .8rem/1 Inter;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-h1{font:700 clamp(28px,5vw,48px)/1.15 Newsreader,serif;margin:8px 0 12px}
-.sub{color:var(--muted);max-width:70ch}
-.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.badge{border:1px solid var(--ink);padding:4px 10px;border-radius:999px;font-size:.9rem}
+    nav ul{display:flex;list-style:none;margin:0;padding:0}
+    nav li{margin-left:25px;font-family:var(--font-mono);font-size:14px;position:relative}
+    nav a{color:var(--lightest-slate);text-decoration:none;transition:color .25s ease}
+    nav a:hover{color:var(--accent)}
+    nav a.active{color:var(--accent)}
+    nav a.active::after{
+      content:'';position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--accent);
+      transform-origin:left;animation:underline .35s both;
+    }
+    @keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-/* ——— Featured strip ——— */
-.strip{margin:28px 0;border:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr}
-.strip .media{border-right:1px solid var(--ink)}
-.strip .media img{border:0;height:100%;object-fit:cover}
-.strip .body{padding:16px}
-.strip h2{font:700 1.3rem Newsreader,serif;margin:0 0 6px}
-.strip .meta{color:var(--muted)}
-.strip .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-@media (max-width:900px){.strip{grid-template-columns:1fr}.strip .media{border-right:0;border-bottom:1px solid var(--ink)}}
+    /* Mobile menu */
+    #menu-toggle{display:none}
+    .hamburger{display:none;cursor:pointer;padding:15px}
+    .hamburger .bar{display:block;width:25px;height:3px;margin:5px auto;background:var(--accent);transition:all .3s}
+    @media (max-width:768px){
+      nav ul{display:none;flex-direction:column;position:fixed;top:0;right:0;width:60%;height:100vh;background:var(--light-navy);
+             padding-top:80px;text-align:center;box-shadow:-10px 0 30px -15px var(--navy-shadow)}
+      nav li{margin:20px 0}
+      #menu-toggle:checked ~ ul{display:flex}
+      .hamburger{display:block}
+      #menu-toggle:checked + .hamburger .bar:nth-child(1){transform:rotate(-45deg) translate(-5px,6px)}
+      #menu-toggle:checked + .hamburger .bar:nth-child(2){opacity:0}
+      #menu-toggle:checked + .hamburger .bar:nth-child(3){transform:rotate(45deg) translate(-5px,-6px)}
+    }
 
-/* ——— Sections ——— */
-.section{padding:24px 0}
-.section h3.sec{font:700 1.4rem Newsreader,serif;margin:0 0 8px}
+    /* Sections */
+    main{padding-top:110px}
+    section{padding:100px 0}
+    .section-heading{font-size:32px;color:var(--lightest-slate);margin:0 0 40px;position:relative;padding-bottom:10px}
+    .section-heading::after{content:'';position:absolute;bottom:0;left:0;width:50px;height:2px;background:var(--accent)}
 
-/* ——— Projects ——— */
-.list{border-top:1px solid var(--ink)}
-.item{border-bottom:1px solid var(--rule)}
-.item > button{
-  all:unset;display:grid;grid-template-columns:90px 1fr 120px;gap:18px;align-items:center;width:100%;cursor:pointer;padding:16px 0;
-}
-@media (max-width:800px){.item > button{grid-template-columns:1fr}}
-.item code{color:#111827;background:#f5f7fb;border:1px solid var(--rule);padding:2px 6px;border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:.88rem}
-.item h4{font:700 1.05rem Newsreader,serif;margin:0}
-.item .meta{color:var(--muted);font-size:.95rem}
-.chev{justify-self:end;transition:transform .2s}
-.item[open] .chev{transform:rotate(90deg)}
-.panel{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:0 0 16px}
-@media (max-width:800px){.panel{grid-template-columns:1fr}}
-.media{padding:6px 0}
-.media img{border:1px solid var(--rule)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.tag{border:1px dashed var(--ink);padding:4px 8px;border-radius:6px;font-size:.88rem}
-.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
-.link{display:inline-flex;gap:8px;border-bottom:1px solid var(--ink);padding-bottom:2px}
-.link:hover{color:var(--accent);border-color:var(--accent)}
+    /* Hero/About */
+    #about{padding-top:150px}
+    #about .eyebrow{margin:0 0 6px;color:var(--accent);font-family:var(--font-mono);font-size:16px}
+    #about h1{font-size:clamp(40px,8vw,80px);color:var(--lightest-slate);margin:0;font-weight:800}
+    #about h2{font-size:clamp(36px,7vw,60px);color:var(--slate);margin:10px 0 0;font-weight:700}
+    #about p{max-width:680px;margin-top:25px}
+    .contact-links{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px}
+    .btn{color:var(--slate);text-decoration:none;font-family:var(--font-mono);border:1px solid var(--accent);
+      padding:10px 15px;border-radius:4px;transition:background .25s,color .25s,transform .2s}
+    .btn:hover{background:rgba(100,255,218,.1);color:var(--accent);transform:translateY(-2px)}
+    .btn.magnetic{display:inline-flex;will-change:transform}
 
-/* ——— Skills (newspaper rows) ——— */
-.table{border-top:1px solid var(--ink)}
-.row{display:grid;grid-template-columns:200px 1fr;gap:18px;border-bottom:1px solid var(--rule);padding:14px 0}
-@media (max-width:700px){.row{grid-template-columns:1fr}}
-.row h5{font:700 1rem Newsreader,serif;margin:0}
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .skill-category{background:var(--light-navy);padding:20px;border-radius:8px;box-shadow:0 10px 30px -15px var(--navy-shadow)}
+    .skill-category h3{color:var(--lightest-slate);margin:0 0 10px;border-bottom:1px solid var(--lightest-navy);padding-bottom:10px;font-size:20px}
+    .skill-category ul{list-style:none;margin:0;padding:0}
+    .skill-category li{margin-bottom:10px;position:relative;padding-left:20px}
+    .skill-category li::before{content:'▹';position:absolute;left:0;color:var(--accent)}
 
-/* ——— Experience ——— */
-.timeline{border-top:1px solid var(--ink)}
-.entry{padding:16px 0;border-bottom:1px solid var(--rule)}
-.when{color:var(--muted);font-size:.95rem}
+    /* Experience */
+    .job{margin-bottom:30px;padding:20px;background:var(--light-navy);border-radius:8px;transition:transform .25s, box-shadow .25s}
+    .job:hover{transform:translateY(-5px);box-shadow:0 10px 30px -15px var(--navy-shadow)}
+    .job-title{color:var(--lightest-slate);font-size:22px;margin:0}
+    .job-title span{color:var(--accent)}
+    .job-dates{font-family:var(--font-mono);color:var(--light-slate);font-size:14px;margin:8px 0 15px}
+    .job ul{list-style:none;margin:0;padding:0}
+    .job li{position:relative;padding-left:20px;margin-bottom:10px}
+    .job li::before{content:'▹';position:absolute;left:0;color:var(--accent)}
 
-/* ——— Education ——— */
-.edugrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width:700px){.edugrid{grid-template-columns:1fr}}
-.edu{border:1px solid var(--ink);padding:14px}
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+    .project-card{
+      background:linear-gradient(180deg, rgba(17,34,64,1), rgba(17,34,64,.92));
+      padding:25px;border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;
+      transition:transform .25s, box-shadow .25s, filter .25s;
+      transform-style:preserve-3d; perspective:1000px; will-change:transform;
+    }
+    .project-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px var(--navy-shadow);filter:brightness(1.04)}
+    .project-title{font-size:22px;color:var(--lightest-slate);margin:0 0 10px}
+    .project-description{font-size:16px;flex-grow:1}
+    .project-tech{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:15px;font-family:var(--font-mono);font-size:13px;color:var(--light-slate)}
+    .project-links a{color:var(--light-slate);text-decoration:none;margin-right:15px;font-size:22px;transition:color .2s, transform .2s}
+    .project-links a:hover{color:var(--accent);transform:translateY(-2px)}
 
-/* ——— Footer ——— */
-.sitefoot{border-top:1px solid var(--ink);padding:16px 0;color:var(--muted);margin-top:28px}
-small a{border-bottom:1px solid var(--muted)}
-</style>
+    /* Footer */
+    footer{text-align:center;padding:30px 0 40px;font-family:var(--font-mono);font-size:12px;color:var(--light-slate)}
+    footer a{color:var(--accent);text-decoration:none}
+
+    /* Reveal + word/char animation */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+    .split{display:inline-block;overflow:hidden}
+    .split .word{display:inline-block;opacity:0;transform:translateY(1em)}
+    .split.in .word{animation:wordUp .7s ease forwards}
+    @keyframes wordUp{to{opacity:1;transform:none}}
+
+    @media (prefers-reduced-motion:reduce){
+      .cursor-glow{display:none}
+      .reveal{opacity:1;transform:none;transition:none}
+      .project-card,.btn{transition:none}
+    }
+  </style>
 </head>
 <body>
+  <!-- Ambient cursor glow -->
+  <div class="cursor-glow" id="glow"></div>
 
-<!-- NAV -->
-<div class="navwrap">
-  <div class="nav">
-    <div class="container inner">
-      <div class="brand">Krish Dasani</div>
-      <nav class="navlinks" aria-label="Primary">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-        <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
+  <header id="siteHeader">
+    <div class="header-container">
+      <a href="#" class="logo" aria-label="Home">K</a>
+      <nav aria-label="Primary">
+        <input type="checkbox" id="menu-toggle"/>
+        <label for="menu-toggle" class="hamburger" aria-label="Toggle menu">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </label>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
+        </ul>
       </nav>
-      <button class="hamburger" id="openMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-</div>
-
-<!-- Drawer -->
-<div class="overlay" id="overlay" aria-hidden="true">
-  <nav class="drawer" role="dialog" aria-label="Mobile Navigation">
-    <div class="brand" style="margin-bottom:8px">Menu</div>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#contact">Contact</a>
-    <a class="btn primary" href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">Download CV</a>
-  </nav>
-</div>
-
-<main>
-  <header class="hero container">
-    <div class="eyebrow">Profile</div>
-    <h1>I design & build clean, fast, human-friendly web apps.</h1>
-    <p class="sub">Focused on performance, accessibility, and developer experience. I work end-to-end across React/Node and Python with production-minded delivery (testing, CI/CD). Open to graduate & junior SWE roles (UK · hybrid).</p>
-    <div class="badges">
-      <span class="badge">React</span><span class="badge">Node.js</span><span class="badge">Python</span>
-      <span class="badge">PostgreSQL</span><span class="badge">MongoDB</span><span class="badge">CI/CD</span>
     </div>
   </header>
 
-  <!-- Featured strip -->
-  <section class="container">
-    <article class="strip">
-      <div class="media"><img src="images/simplemoney.png" alt="SimpleMoney preview"></div>
-      <div class="body">
-        <h2>Featured — SimpleMoney</h2>
-        <p class="meta">Personal finance simplified: track income, expenses, and savings goals with monthly insights and custom categories.</p>
-        <div class="tags">
-          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Chart.js</span>
+  <main class="container">
+    <!-- About / Hero -->
+    <section id="about" class="reveal">
+      <p class="eyebrow">Hi, my name is</p>
+      <h1 class="split">Krish Dasani.</h1>
+      <h2 class="split">I build things for the web.</h2>
+      <p>
+        Technology graduate (MSc Computer Science, Merit) with hands-on Python, SQL and API development, plus web application delivery
+        (PHP/JavaScript). I enjoy turning business requirements into reliable, well-documented tools and improving systems through
+        measurement and iteration.
+      </p>
+      <div class="contact-links">
+        <a class="btn magnetic" href="mailto:krishdasani123@gmail.com">Email</a>
+        <a class="btn magnetic" href="https://github.com/Krishdasani" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn magnetic" href="https://www.linkedin.com/in/krish-dasani/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn magnetic" href="tel:+447767202154">Phone</a>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="reveal">
+      <h2 class="section-heading">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Languages</h3>
+          <ul>
+            <li>Python (pandas, NumPy basics)</li>
+            <li>SQL</li>
+            <li>JavaScript (ES6+)</li>
+            <li>PHP</li>
+            <li>HTML &amp; CSS</li>
+          </ul>
         </div>
-        <div class="actions">
-          <a class="btn" href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn primary" href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noreferrer">Live site</a>
+        <div class="skill-category">
+          <h3>Platforms &amp; Practices</h3>
+          <ul>
+            <li>Git (branching/PRs)</li>
+            <li>CI/CD basics</li>
+            <li>Containers (Docker basics)</li>
+            <li>Linux</li>
+            <li>Agile/Scrum</li>
+          </ul>
+        </div>
+        <div class="skill-category">
+          <h3>Data / ML</h3>
+          <ul>
+            <li>OpenCV</li>
+            <li>scikit-learn (exposure)</li>
+            <li>Data cleaning &amp; simple visualisation (matplotlib)</li>
+          </ul>
+        </div>
+        <div class="skill-category">
+          <h3>Other</h3>
+          <ul>
+            <li>REST APIs</li>
+            <li>Documentation</li>
+            <li>Basic risk &amp; controls awareness</li>
+          </ul>
         </div>
       </div>
-    </article>
-  </section>
+    </section>
 
-  <!-- Projects -->
-  <section id="projects" class="section container">
-    <h3 class="sec">Projects</h3>
-    <ul class="list" aria-label="Selected Projects">
-      <!-- 1 Website Generator -->
-      <li class="item">
-        <button aria-expanded="false">
-          <code>01</code>
-          <div>
-            <h4>Website Generator for Photographers</h4>
-            <div class="meta">MSc dissertation — generates static portfolio sites from metadata & quality metrics.</div>
-          </div>
-          <span class="chev">›</span>
-        </button>
-        <div class="panel" hidden>
-          <div></div>
-          <div>
-            <div class="media"><img src="images/wg-1.png" alt="Website Generator"/></div>
-            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Jinja</span></div>
-            <ul class="disc">
-              <li>Processed EXIF and quality metrics to curate galleries</li>
-              <li>Templated, responsive exports ready for Netlify/Vercel</li>
-            </ul>
-            <div class="links">
-              <a class="link" href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- 2 FitFusion -->
-      <li class="item">
-        <button aria-expanded="false">
-          <code>02</code>
-          <div>
-            <h4>FitFusion — Health Platform</h4>
-            <div class="meta">Workouts, nutrition, and goals with role-based access and charts.</div>
-          </div>
-          <span class="chev">›</span>
-        </button>
-        <div class="panel" hidden>
-          <div></div>
-          <div>
-            <div class="media"><img src="images/fitfusion.png" alt="FitFusion"/></div>
-            <div class="tags"><span class="tag">React</span><span class="tag">Node</span><span class="tag">MongoDB</span></div>
-            <ul class="disc">
-              <li>Modular front-end + JWT auth</li>
-              <li>Dashboards with charts & progress tracking</li>
-            </ul>
-            <div class="links">
-              <a class="link" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- 3 MHADA -->
-      <li class="item">
-        <button aria-expanded="false">
-          <code>03</code>
-          <div>
-            <h4>MHADA Housing Lottery Portal</h4>
-            <div class="meta">End-to-end portal prototype for affordable housing lotteries.</div>
-          </div>
-          <span class="chev">›</span>
-        </button>
-        <div class="panel" hidden>
-          <div></div>
-          <div>
-            <div class="media"><img src="images/mahada-cover.png" alt="MHADA portal"/></div>
-            <div class="tags"><span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span></div>
-            <ul class="disc">
-              <li>Application flow, eligibility checks, admin dashboard</li>
-              <li>Emphasis on clarity, validation, and performance</li>
-            </ul>
-            <div class="links">
-              <a class="link" href="https://lottery2021.in" target="_blank" rel="noreferrer">Live demo</a>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <!-- 4 Criminal Face Detection -->
-      <li class="item">
-        <button aria-expanded="false">
-          <code>04</code>
-          <div>
-            <h4>Criminal Face Detection System</h4>
-            <div class="meta">Bachelor’s final-year project using classical CV techniques.</div>
-          </div>
-          <span class="chev">›</span>
-        </button>
-        <div class="panel" hidden>
-          <div></div>
-          <div>
-            <div class="media"><img src="images/criminal-1.png" alt="Criminal Face Detection"/></div>
-            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span></div>
-            <ul class="disc">
-              <li>Face detection & recognition pipeline</li>
-              <li>Live demo with webcam feed and reporting</li>
-            </ul>
-            <div class="links">
-              <a class="link" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="section container">
-    <h3 class="sec">Skills</h3>
-    <div class="table">
-      <div class="row">
-        <h5>Frontend</h5>
-        <div class="skill-tags">
-          <span class="tag">JavaScript/TypeScript</span><span class="tag">React</span>
-          <span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Accessibility</span>
-        </div>
-      </div>
-      <div class="row">
-        <h5>Backend</h5>
-        <div class="skill-tags">
-          <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">FastAPI</span><span class="tag">PHP</span>
-        </div>
-      </div>
-      <div class="row">
-        <h5>Data & Infra</h5>
-        <div class="skill-tags">
-          <span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">MySQL</span>
-          <span class="tag">Docker</span><span class="tag">GitHub Actions</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section id="experience" class="section container">
-    <h3 class="sec">Experience</h3>
-    <div class="timeline">
-      <div class="entry">
-        <div class="when">2024 — 2025 · Varshi Tech & Freelance</div>
-        <strong>Full-Stack Developer (Projects)</strong>
-        <ul class="disc">
-          <li>Built professional, responsive apps and dashboards</li>
-          <li>Integrated REST APIs; optimized database queries</li>
-          <li>Tested, debugged, and shipped with CI/CD</li>
+    <!-- Experience -->
+    <section id="experience" class="reveal">
+      <h2 class="section-heading">Where I've Worked</h2>
+      <div class="job tilt">
+        <h3 class="job-title">Full-Stack Developer <span>@ Varshi Tech</span></h3>
+        <p class="job-dates">May 2023 — Aug 2023</p>
+        <ul>
+          <li>Built PHP/MySQL features and optimised queries with indexing/pagination; improved UX with clear server-side validation.</li>
+          <li>Collaborated with QA and product in Agile sprints; wrote concise release notes and README instructions.</li>
+          <li>Integrated REST APIs; set up lightweight CI/CD to improve delivery confidence.</li>
         </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Education -->
-  <section id="education" class="section container">
-    <h3 class="sec">Education</h3>
-    <div class="edugrid">
-      <article class="edu">
-        <strong>MSc Computer Science (Merit)</strong><br/>
-        <span class="muted">University of Strathclyde · 2023 — 2024</span>
-      </article>
-      <article class="edu">
-        <strong>BE Computer Engineering (CGPI 7.61)</strong><br/>
-        <span class="muted">University of Mumbai · 2019 — 2023</span>
-      </article>
-    </div>
-  </section>
+    <!-- Projects -->
+    <section id="projects" class="reveal">
+      <h2 class="section-heading">Some Things I've Built</h2>
+      <div class="projects-grid">
+        <div class="project-card tilt">
+          <div>
+            <h3 class="project-title">SimpleMoney — Personal Finance</h3>
+            <p class="project-description">
+              Lightweight personal finance tracker with clear UX, monthly insights, and custom categories.
+            </p>
+          </div>
+          <div>
+            <ul class="project-tech"><li>React</li><li>Node.js</li><li>MongoDB</li><li>Chart.js</li></ul>
+            <div class="project-links">
+              <a href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noopener" title="Live site">🌐</a>
+              <a href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
 
-  <!-- Contact -->
-  <section id="contact" class="section container">
-    <h3 class="sec">Contact</h3>
-    <p class="sub">Open to graduate & junior SWE roles across the UK (hybrid preferred).</p>
-    <div class="badges" style="margin-top:12px">
-      <a class="btn primary" href="mailto:krishdasani123@gmail.com">Email me</a>
-      <a class="btn" href="https://github.com/Krishdasani" target="_blank" rel="noreferrer">GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noreferrer">LinkedIn</a>
-    </div>
-  </section>
+        <div class="project-card tilt">
+          <div>
+            <h3 class="project-title">Website Generator for Photographers</h3>
+            <p class="project-description">
+              MSc dissertation project. Modular pipeline to process images & EXIF, score quality, and export responsive static portfolios.
+            </p>
+          </div>
+          <div>
+            <ul class="project-tech"><li>Python</li><li>OpenCV</li><li>Jinja</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
 
-  <footer class="sitefoot container">
-    <small>© <span id="year"></span> Krish Dasani · <a href="krish_dasani_resume.pdf" target="_blank" rel="noreferrer">CV</a></small>
+        <div class="project-card tilt">
+          <div>
+            <h3 class="project-title">FitFusion — Health Platform</h3>
+            <p class="project-description">Track workouts, nutrition, and goals with a modular front-end, JWT auth, and charts.</p>
+          </div>
+          <div>
+            <ul class="project-tech"><li>React</li><li>Node</li><li>MongoDB</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/Krishdasani" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card tilt">
+          <div>
+            <h3 class="project-title">MHADA Housing Lottery Portal</h3>
+            <p class="project-description">End-to-end portal: application flow, eligibility checks, and admin dashboard.</p>
+          </div>
+          <div>
+            <ul class="project-tech"><li>React</li><li>FastAPI</li><li>PostgreSQL</li></ul>
+            <div class="project-links">
+              <a href="https://lottery2021.in" target="_blank" rel="noopener" title="Live demo">Live demo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card tilt">
+          <div>
+            <h3 class="project-title">Criminal Face Detection System</h3>
+            <p class="project-description">Classical CV pipeline with face detection & recognition; webcam demo and reporting.</p>
+          </div>
+          <div>
+            <ul class="project-tech"><li>Python</li><li>OpenCV</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/Krishdasani" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="reveal">
+      <h2 class="section-heading">Education</h2>
+      <div class="education-entry">
+        <h3 style="color:var(--lightest-slate);margin:0 0 6px">MSc Computer Science (Merit)</h3>
+        <p>University of Strathclyde, Glasgow, UK (2023 — 2024)</p>
+      </div>
+      <div class="education-entry">
+        <h3 style="color:var(--lightest-slate);margin:20px 0 6px">BE Computer Engineering (CGPI 7.61/10)</h3>
+        <p>University of Mumbai, India (2019 — 2023)</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Designed &amp; Built by Krish Dasani</p>
   </footer>
-</main>
 
-<script>
-// Year
-document.getElementById('year').textContent = new Date().getFullYear();
+  <script>
+    /* Sticky header shadow */
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll',()=>{ header.classList.toggle('scrolled', window.scrollY > 6); });
 
-// Drawer
-const overlay=document.getElementById('overlay');
-document.getElementById('openMenu')?.addEventListener('click',()=>{overlay.style.display='block';overlay.setAttribute('aria-hidden','false')});
-overlay?.addEventListener('click',e=>{ if(e.target===overlay) { overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); }});
+    /* Close mobile menu on nav click + active nav highlight */
+    const navLinks=[...document.querySelectorAll('nav a[href^="#"]')];
+    const sections=[...document.querySelectorAll('main section[id]')];
+    navLinks.forEach(a=>{
+      a.addEventListener('click',()=>{
+        const t=document.getElementById('menu-toggle'); if(t && t.checked) t.checked=false;
+      });
+    });
+    const setActive=()=>{
+      let current='';
+      const y=window.scrollY+140;
+      sections.forEach(s=>{ if(y>=s.offsetTop && y<s.offsetTop+s.offsetHeight) current=s.id; });
+      navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+current));
+    };
+    window.addEventListener('scroll', setActive); setActive();
 
-// Smooth scroll + close drawer on nav tap
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const id=a.getAttribute('href'); const t=document.querySelector(id);
-    if(t){e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); history.pushState(null,'',id);}
-    overlay?.setAttribute('aria-hidden','true'); if(overlay) overlay.style.display='none';
-  });
-});
+    /* Cursor ambient glow (follows pointer, eased) */
+    const glow=document.getElementById('glow');
+    let gx=innerWidth/2, gy=innerHeight/3, tx=gx, ty=gy;
+    addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; });
+    const lerp=(a,b,t)=>a+(b-a)*t;
+    (function loop(){ gx=lerp(gx,tx,.08); gy=lerp(gy,ty,.08); glow.style.left=gx+'px'; glow.style.top=gy+'px'; requestAnimationFrame(loop); })();
 
-// Project inline reveal (accordion-lite)
-const items = document.querySelectorAll('.item');
-items.forEach((li, i)=>{
-  const btn=li.querySelector('button'); const panel=li.querySelector('.panel');
-  btn.addEventListener('click',()=>{
-    const open = btn.getAttribute('aria-expanded')==='true';
-    items.forEach(p=>{ p.querySelector('.panel').hidden=true; p.querySelector('button').setAttribute('aria-expanded','false'); p.removeAttribute('open'); });
-    if(!open){ panel.hidden=false; btn.setAttribute('aria-expanded','true'); li.setAttribute('open',''); }
-  });
-});
-</script>
+    /* Split words for hero headings + animate in */
+    function splitWords(el){ const words=el.textContent.trim().split(' ').map(w=>`<span class="word">${w}&nbsp;</span>`).join(''); el.innerHTML=words; }
+    document.querySelectorAll('.split').forEach(splitWords);
+    function playSplit(el){ el.classList.add('in'); el.querySelectorAll('.word').forEach((w,i)=>{ w.style.animationDelay=(i*60)+'ms'; }); }
+
+    /* Scroll reveal + stagger */
+    const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced && 'IntersectionObserver' in window){
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const sec=entry.target; sec.classList.add('show');
+            sec.querySelectorAll('.skill-category,.project-card,.job').forEach((c,i)=>{ c.style.transitionDelay=Math.min(i*60,360)+'ms'; c.classList.add('show'); });
+            sec.querySelectorAll('.split').forEach(playSplit);
+            io.unobserve(sec);
+          }
+        });
+      },{threshold:.12, rootMargin:'0px 0px -10% 0px'});
+      document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
+    }else{
+      document.querySelectorAll('.reveal').forEach(s=>s.classList.add('show'));
+      document.querySelectorAll('.split').forEach(playSplit);
+    }
+
+    /* Magnetic buttons */
+    document.querySelectorAll('.btn.magnetic').forEach(btn=>{
+      let rAF; function onMove(e){
+        const r=btn.getBoundingClientRect(); const x=e.clientX-(r.left+r.width/2); const y=e.clientY-(r.top+r.height/2);
+        btn.style.transform=`translate(${x/8}px, ${y/8}px)`; }
+      function reset(){ btn.style.transform=''; }
+      btn.addEventListener('pointermove', e=>{ cancelAnimationFrame(rAF); rAF=requestAnimationFrame(()=>onMove(e)); });
+      btn.addEventListener('pointerleave', ()=>{ cancelAnimationFrame(rAF); reset(); });
+    });
+
+    /* Card tilt */
+    document.querySelectorAll('.tilt, .project-card').forEach(card=>{
+      let ticking=false;
+      card.addEventListener('pointermove', e=>{
+        if(ticking) return; ticking=true;
+        requestAnimationFrame(()=>{
+          const r=card.getBoundingClientRect();
+          const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+          const rx=(py-.5)*8, ry=(.5-px)*8;
+          card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+          ticking=false;
+        });
+      });
+      card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
+    });
+  </script>
 </body>
 </html>
