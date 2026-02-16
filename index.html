@@ -1,565 +1,813 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Krish Dasani | Portfolio</title>
-  <meta name="description" content="Portfolio of Krish Dasani — Full-Stack Developer."/>
-  <style>
-    :root{
-      --dark-navy:#020c1b; --navy:#0a192f; --light-navy:#112240; --lightest-navy:#233554;
-      --navy-shadow:rgba(2,12,27,.7); --dark-slate:#495670; --slate:#8892b0; --light-slate:#a8b2d1;
-      --lightest-slate:#ccd6f6; --white:#e6f1ff; --accent:#64ffda;
-      --font-sans:'Inter', -apple-system, system-ui, sans-serif;
-      --font-mono:'SF Mono','Fira Code','Fira Mono','Roboto Mono',monospace;
-    }
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:var(--font-sans);background:var(--navy);color:var(--slate);font-size:18px;line-height:1.6;overflow-x:hidden}
-
-    /* Ambient cursor glow */
-    .cursor-glow{
-      position:fixed; inset:auto auto 0 0; pointer-events:none; z-index:0;
-      width:44vmax; height:44vmax; border-radius:50%;
-      background:radial-gradient(closest-side, rgba(100,255,218,0.10), rgba(100,255,218,0.06) 40%, transparent 70%);
-      transform:translate(-50%,-50%); filter:blur(36px); opacity:.65;
-      mix-blend-mode:screen; transition:opacity .2s ease;
-    }
-
-    .container{max-width:1100px;margin:0 auto;padding:0 50px;position:relative;z-index:1}
-    @media (max-width:768px){.container{padding:0 25px}}
-
-    /* Header & Navigation */
-    header{position:fixed;top:0;left:0;right:0;z-index:10;background:rgba(10,25,47,.85);backdrop-filter:blur(10px);
-      transition:box-shadow .25s ease}
-    header.scrolled{box-shadow:0 10px 30px -15px var(--navy-shadow)}
-    .header-container{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;padding:18px 50px}
-    @media (max-width:768px){.header-container{padding:18px 25px}}
-    .logo{color:var(--accent);font-family:var(--font-mono);font-size:24px;text-decoration:none;display:flex;align-items:center;gap:10px}
-    .logo svg{width:24px;height:24px}
-
-    nav ul{display:flex;list-style:none;margin:0;padding:0}
-    nav li{margin-left:25px;font-family:var(--font-mono);font-size:14px;position:relative}
-    nav a{color:var(--lightest-slate);text-decoration:none;transition:color .25s ease}
-    nav a:hover{color:var(--accent)}
-    nav a.active{color:var(--accent)}
-    nav a.active::after{
-      content:'';position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--accent);
-      transform-origin:left;animation:underline .35s both;
-    }
-    @keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-
-    /* Mobile menu */
-    #menu-toggle{display:none}
-    .hamburger{display:none;cursor:pointer;padding:12px}
-    .hamburger .bar{display:block;width:25px;height:3px;margin:5px auto;background:var(--accent);transition:all .3s}
-    @media (max-width:768px){
-      nav ul{display:none;flex-direction:column;position:fixed;top:0;right:0;width:65%;height:100vh;background:var(--light-navy);
-             padding-top:80px;text-align:center;box-shadow:-10px 0 30px -15px var(--navy-shadow)}
-      nav li{margin:20px 0}
-      #menu-toggle:checked ~ ul{display:flex}
-      .hamburger{display:block}
-      #menu-toggle:checked + .hamburger .bar:nth-child(1){transform:rotate(-45deg) translate(-5px,6px)}
-      #menu-toggle:checked + .hamburger .bar:nth-child(2){opacity:0}
-      #menu-toggle:checked + .hamburger .bar:nth-child(3){transform:rotate(45deg) translate(-5px,-6px)}
-    }
-
-    /* Sections */
-    main{padding-top:96px}
-    section{padding:86px 0}
-    .section-heading{font-size:32px;color:var(--lightest-slate);margin:0 0 32px;position:relative;padding-bottom:10px}
-    .section-heading::after{content:'';position:absolute;bottom:0;left:0;width:52px;height:2px;background:var(--accent)}
-
-    /* Hero/About */
-    #about{padding-top:140px}
-    #about .eyebrow{margin:0 0 6px;color:var(--accent);font-family:var(--font-mono);font-size:16px}
-    #about h1{font-size:clamp(40px,8vw,78px);color:var(--lightest-slate);margin:0;font-weight:800}
-    #about h2{font-size:clamp(34px,7vw,56px);color:var(--slate);margin:10px 0 0;font-weight:700}
-    #about p{max-width:740px;margin-top:22px}
-    .contact-links{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
-    .btn{color:var(--slate);text-decoration:none;font-family:var(--font-mono);border:1px solid var(--accent);
-      padding:10px 14px;border-radius:6px;transition:background .25s,color .25s,transform .2s;display:inline-flex;align-items:center;gap:10px}
-    .btn svg{width:18px;height:18px}
-    .btn:hover{background:rgba(100,255,218,.1);color:var(--accent);transform:translateY(-2px)}
-    .btn.magnetic{will-change:transform}
-
-    /* Skills grid */
-    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-    .skill-category{background:var(--light-navy);padding:18px;border-radius:10px;box-shadow:0 10px 30px -15px var(--navy-shadow)}
-    .skill-category h3{color:var(--lightest-slate);margin:0 0 10px;border-bottom:1px solid var(--lightest-navy);padding-bottom:10px;font-size:18px}
-    .skill-category ul{list-style:none;margin:0;padding:0}
-
-    /* Skill items with icons */
-    .skill-item{
-      display:flex; align-items:center; gap:10px;
-      margin:10px 0; padding:6px 8px; border-radius:8px;
-      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
-    }
-    .skill-item .skill-icon{width:20px; height:20px; color:var(--accent); flex:0 0 20px; display:inline-flex}
-    .skill-item .skill-icon svg{width:20px; height:20px}
-
-    /* Experience */
-    .job{margin-bottom:24px;padding:18px;background:var(--light-navy);border-radius:10px;transition:transform .25s, box-shadow .25s}
-    .job:hover{transform:translateY(-5px);box-shadow:0 10px 30px -15px var(--navy-shadow)}
-    .job-title{color:var(--lightest-slate);font-size:22px;margin:0}
-    .job-title span{color:var(--accent)}
-    .job-dates{font-family:var(--font-mono);color:var(--light-slate);font-size:14px;margin:8px 0 12px}
-    .job ul{list-style:none;margin:0;padding:0}
-    .job li{position:relative;padding-left:20px;margin-bottom:10px}
-    .job li::before{content:'▹';position:absolute;left:0;color:var(--accent)}
-
-    /* Projects */
-    .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
-    .project-card{
-      background:linear-gradient(180deg, rgba(17,34,64,1), rgba(17,34,64,.92));
-      border:1px solid rgba(100,255,218,.08);
-      padding:14px;border-radius:14px;display:flex;flex-direction:column;gap:12px;
-      transition:transform .25s, box-shadow .25s, filter .25s;transform-style:preserve-3d; perspective:1000px;
-    }
-    .project-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px var(--navy-shadow);filter:brightness(1.04)}
-    .project-media{border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:var(--lightest-navy);border:1px solid rgba(255,255,255,.06)}
-    .project-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .35s ease, filter .35s ease}
-    .project-card:hover .project-media img{transform:scale(1.02);filter:brightness(1.05)}
-    .project-head{display:flex;align-items:center;gap:10px}
-    .project-icon{width:22px;height:22px;color:var(--accent);flex:0 0 auto}
-    .project-title{font-size:20px;color:var(--lightest-slate);margin:0}
-    .project-description{font-size:16px;margin:0}
-    .project-tech{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--light-slate)}
-    .project-links{display:flex;gap:14px;margin-top:6px}
-    .project-links a{color:var(--light-slate);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-    .project-links a svg{width:18px;height:18px}
-    .project-links a:hover{color:var(--accent)}
-
-    /* Footer */
-    footer{text-align:center;padding:30px 0 40px;font-family:var(--font-mono);font-size:12px;color:var(--light-slate)}
-    footer a{color:var(--accent);text-decoration:none}
-
-    /* Reveal + word animation */
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1;transform:none}
-    .split{display:inline-block;overflow:hidden}
-    .split .word{display:inline-block;opacity:0;transform:translateY(1em)}
-    .split.in .word{animation:wordUp .7s ease forwards}
-    @keyframes wordUp{to{opacity:1;transform:none}}
-
-    @media (prefers-reduced-motion:reduce){
-      .cursor-glow{display:none}
-      .reveal{opacity:1;transform:none;transition:none}
-      .project-card,.btn{transition:none}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krish Dasani | Software Engineer • Open to Work</title>
+    <meta name="description" content="Backend Engineer specializing in FastAPI, PostgreSQL, and high-performance data systems. MSc Computer Science. Open to opportunities.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#020617',
+                        surface: '#0f172a',
+                        surfaceLight: '#1e293b',
+                        primary: '#06b6d4',
+                        secondary: '#8b5cf6',
+                        accent: '#00f0ff',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #020617;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.2);
+        }
+        
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(139,92,246,0.05) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            filter: blur(40px);
+            transition: opacity 0.3s;
+        }
+        
+        .open-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+        }
+        
+        .metric {
+            color: #22d3ee;
+            font-weight: 700;
+            font-family: 'Space Grotesk', monospace;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #06b6d4;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .skill-tag {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            color: #22d3ee;
+            transition: all 0.2s;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(6, 182, 212, 0.2);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, transparent);
+        }
+        
+        .project-icon-large {
+            width: 60px;
+            height: 60px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #22d3ee;
+            transition: all 0.3s;
+        }
+        
+        .glass-card:hover .project-icon-large {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.4);
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .cursor-glow { display: none; }
+        }
+    </style>
 </head>
-<body>
-  <!-- Ambient cursor glow -->
-  <div class="cursor-glow" id="glow"></div>
+<body class="antialiased selection:bg-primary selection:text-dark">
 
-  <header id="siteHeader">
-    <div class="header-container">
-      <a href="#" class="logo" aria-label="Home">
-        <!-- KD mark -->
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v16M4 12l8-8M4 12l8 8M20 4v16M12 12l8-8M12 12l8 8"/></svg>
-        Krish
-      </a>
-      <nav aria-label="Primary">
-        <input type="checkbox" id="menu-toggle"/>
-        <label for="menu-toggle" class="hamburger" aria-label="Toggle menu">
-          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-        </label>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#education">Education</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-  <main class="container">
-    <!-- About / Hero -->
-    <section id="about" class="reveal">
-      <p class="eyebrow">Hi, my name is</p>
-      <h1 class="split">Krish Dasani.</h1>
-      <h2 class="split">I build things for the web.</h2>
-      <p>
-        Technology graduate (MSc Computer Science, Merit) with hands-on Python, SQL and API development, plus web application delivery
-        (PHP/JavaScript). I enjoy turning business requirements into reliable, well-documented tools and improving systems through
-        measurement and iteration. <!-- Profile wording per CV -->
-      </p>
-      <div class="contact-links">
-        <a class="btn magnetic" href="mailto:krishdasani123@gmail.com" aria-label="Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
-          Email
-        </a>
-        <a class="btn magnetic" href="https://github.com/krishdasani" target="_blank" rel="noopener" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32.77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.25 2.95.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-          GitHub
-        </a>
-        <a class="btn magnetic" href="https://www.linkedin.com/in/krish-dasani" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 5 2.12 5 3.5ZM.5 8h4V24h-4V8Zm7.5 0h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.8 2.6 4.8 6V24h-4v-6.7c0-1.6 0-3.6-2.2-3.6s-2.6 1.7-2.6 3.5V24h-4V8Z"/></svg>
-          LinkedIn
-        </a>
-        <a class="btn magnetic" href="tel:+447767202154" aria-label="Phone">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v2a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.63A2 2 0 0 1 4.11 1h2a2 2 0 0 1 2 1.72c.12.89.31 1.76.57 2.6a2 2 0 0 1-.45 2.11L7 8a16 16 0 0 0 9 9l.57-.23a2 2 0 0 1 2.11.45c.84.26 1.71.45 2.6.57A2 2 0 0 1 22 16.92Z"/></svg>
-          Call
-        </a>
-      </div>
-    </section>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="font-display font-bold text-2xl text-white tracking-tight">
+                    KD<span class="text-primary">.</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#experience" class="text-sm text-slate-400 hover:text-primary transition-colors">Experience</a>
+                    <a href="#skills" class="text-sm text-slate-400 hover:text-primary transition-colors">Skills</a>
+                    <a href="#projects" class="text-sm text-slate-400 hover:text-primary transition-colors">Projects</a>
+                    <a href="#contact" class="text-sm text-slate-400 hover:text-primary transition-colors">Contact</a>
+                    <a href="/mnt/kimi/upload/krish_dasani_cv (3).pdf" download 
+                       class="px-4 py-2 bg-primary/10 border border-primary/50 text-primary rounded-lg text-sm font-bold hover:bg-primary hover:text-dark transition-all flex items-center gap-2">
+                        <i class="fas fa-download"></i> CV
+                    </a>
+                </div>
 
-    <!-- Skills (icons) -->
-    <section id="skills" class="reveal">
-      <h2 class="section-heading">Technical Skills</h2>
-      <div class="skills-grid">
-        <!-- Languages -->
-        <div class="skill-category">
-          <h3>Languages</h3>
-          <ul>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Python -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 12c0-3 2-5 5-5h2a3 3 0 0 1 3 3v2H9a2 2 0 1 0 0 4h6"/><circle cx="15.5" cy="7.5" r="0.8" fill="currentColor" stroke="none"/>
-              </svg></span><span>Python (pandas, NumPy basics)</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- SQL / DB -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>
-              </svg></span><span>SQL</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- JS -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 8L4 12l4 4M16 8l4 4-4 4M10 20l4-16"/>
-              </svg></span><span>JavaScript (ES6+)</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- PHP -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="6" width="18" height="12" rx="6"/><path d="M8 12h3M8 9v6M13 12h3M13 9v6"/>
-              </svg></span><span>PHP</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- HTML/CSS -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><path d="M2.5 12h19M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>
-              </svg></span><span>HTML, CSS</span></li>
-          </ul>
+                <button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
         </div>
-
-        <!-- Platforms & Practices -->
-        <div class="skill-category">
-          <h3>Platforms &amp; Practices</h3>
-          <ul>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Git -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 6h6a2 2 0 0 1 2 2h0a2 2 0 0 1-2 2h-6v6"/>
-              </svg></span><span>Git (branching/PRs)</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- CI/CD -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a7.8 7.8 0 0 0 .1-2 7.8 7.8 0 0 0-.1-2l2.1-1.6-2-3.4-2.5.7a8 8 0 0 0-1.7-1l-.3-2.6h-4l-.3 2.6a8 8 0 0 0-1.7 1L4.5 3.9l-2 3.4L4.6 9a7.8 7.8 0 0 0-.1 2 7.8 7.8 0 0 0 .1 2l-2.1 1.6 2 3.4 2.5-.7a8 8 0 0 0 1.7 1l.3 2.6h4l.3-2.6a8 8 0 0 0 1.7-1l2.5.7 2-3.4L19.4 15Z"/>
-              </svg></span><span>CI/CD basics</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Docker -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="10" width="4" height="4"/><rect x="7" y="10" width="4" height="4"/>
-                <rect x="11" y="10" width="4" height="4"/><rect x="7" y="6" width="4" height="4"/>
-                <path d="M3 16c.8 2.5 2.9 4 6.5 4H17a4 4 0 0 0 4-4v-1h-4"/>
-              </svg></span><span>Containers (Docker basics)</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Linux -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9l3 3-3 3M12 16h5"/>
-              </svg></span><span>Linux</span></li>
-          </ul>
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5">
+            <div class="px-6 pt-2 pb-6 space-y-1">
+                <a href="#experience" class="block px-3 py-2 text-slate-400 hover:text-primary">Experience</a>
+                <a href="#skills" class="block px-3 py-2 text-slate-400 hover:text-primary">Skills</a>
+                <a href="#projects" class="block px-3 py-2 text-slate-400 hover:text-primary">Projects</a>
+                <a href="#contact" class="block px-3 py-2 text-primary">Contact</a>
+                <a href="/mnt/kimi/upload/krish_dasani_cv (3).pdf" download class="block px-3 py-2 text-primary font-medium">Download CV</a>
+            </div>
         </div>
+    </nav>
 
-        <!-- Data / ML -->
-        <div class="skill-category">
-          <h3>Data / ML</h3>
-          <ul>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- OpenCV -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><path d="M3.5 10h7l-3 10M8 4l8 6-4 10M20.5 14h-7l3-10"/>
-              </svg></span><span>OpenCV</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- scikit-learn -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/>
-              </svg></span><span>scikit-learn (exposure)</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- matplotlib -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 20V6M10 20V10M16 20v-4M3 20h18"/>
-              </svg></span><span>Data cleaning &amp; simple visualisation (matplotlib)</span></li>
-          </ul>
+    <!-- Hero Section - Centered Layout with Typing Effect -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.08),transparent_50%)]"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <div class="space-y-6 reveal">
+                <div class="open-badge mb-8 inline-flex">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Open to Backend & Data Engineering Roles
+                </div>
+                
+                <div class="space-y-4">
+                    <p class="text-primary font-mono text-sm tracking-wider">Hi, my name is</p>
+                    <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-none">
+                        Krish Dasani.
+                    </h1>
+                    <h2 class="font-display font-bold text-3xl md:text-5xl lg:text-6xl text-slate-400 mt-4">
+                        I build <span class="text-gradient typing" id="typewriter">data systems</span>
+                    </h2>
+                </div>
+                
+                <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto mt-8">
+                    I'm a software engineer specializing in building (and occasionally designing) 
+                    exceptional digital experiences. Currently, I'm focused on building accessible, 
+                    human-centered products.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 pt-8">
+                    <a href="#projects" class="px-8 py-4 border border-primary text-primary font-bold rounded-xl hover:bg-primary/10 transition-all">
+                        Check out my work
+                    </a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Other -->
-        <div class="skill-category">
-          <h3>Other</h3>
-          <ul>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- REST APIs -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1"/><path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 1 1-7-7l1-1"/>
-              </svg></span><span>REST APIs</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Docs -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h3"/>
-              </svg></span><span>Documentation</span></li>
-            <li class="skill-item"><span class="skill-icon">
-              <!-- Risk/Controls -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2l7 3v6c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5l7-3Z"/><path d="M9.5 12.5l2 2 3-3"/>
-              </svg></span><span>Basic risk &amp; controls awareness</span></li>
-          </ul>
+    <!-- Experience Section -->
+    <section id="experience" class="py-32 relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-4">
+                    Professional <span class="text-gradient">Experience</span>
+                </h2>
+                <p class="text-slate-400 text-lg">Production systems and scalable architectures</p>
+            </div>
+
+            <div class="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:timeline-line">
+                
+                <!-- GuSport -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-primary bg-dark shadow-[0_0_20px_rgba(6,182,212,0.3)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <div class="w-3 h-3 rounded-full bg-primary"></div>
+                    </div>
+                    
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-8 rounded-2xl border-l-4 border-primary">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 space-y-2 md:space-y-0">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Software Developer</h3>
+                                <div class="text-primary font-medium text-lg">GuSport — Momentum M2</div>
+                            </div>
+                            <span class="text-slate-500 text-sm font-mono">Aug 2025 – Present</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs font-medium">FastAPI</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs font-medium">PostgreSQL</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs font-medium">Redis</span>
+                            <span class="skill-tag px-3 py-1 rounded-full text-xs font-medium">OpenAI API</span>
+                        </div>
+
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-primary mt-1"></i>
+                                <span>Architecting multi-tenant analytics platform processing <span class="metric">1000s</span> of concurrent analyses with <span class="metric">&lt;100ms</span> response times and <span class="metric">99.5%</span> uptime</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-primary mt-1"></i>
+                                <span>Implemented async job processing with Redis + RQ queues, achieving <span class="metric">3.5× throughput</span> improvement and 60% lower memory usage</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-primary mt-1"></i>
+                                <span>Optimized PostgreSQL schemas with strategic indexing; reduced complex query times by <span class="metric">78%</span> and storage footprint by 40%</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-primary mt-1"></i>
+                                <span>Built OAuth2 YouTube analytics pipeline delivering <span class="metric">9+ KPIs</span> (brand-lift, story resonance, emotion maps)</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-primary mt-1"></i>
+                                <span>Implemented complete tenant data isolation and role-based access control using JWT authentication</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Varshi Tech -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-secondary bg-dark shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <div class="w-3 h-3 rounded-full bg-secondary"></div>
+                    </div>
+                    
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-8 rounded-2xl border-l-4 border-secondary">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 space-y-2 md:space-y-0">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Software Developer</h3>
+                                <div class="text-secondary font-medium text-lg">Varshi Tech</div>
+                            </div>
+                            <span class="text-slate-500 text-sm font-mono">May 2023 – Aug 2023</span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 rounded-full text-xs font-medium border border-secondary/30 text-secondary bg-secondary/10">PHP</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-medium border border-secondary/30 text-secondary bg-secondary/10">MySQL</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-medium border border-secondary/30 text-secondary bg-secondary/10">JavaScript</span>
+                        </div>
+
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-secondary mt-1"></i>
+                                <span>Led development of <strong class="text-white">MHADA Housing Lottery Portal</strong> supporting thousands of registrations; automated allocation reduced manual processing by <span class="metric">70%</span></span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-secondary mt-1"></i>
+                                <span>Refactored MySQL schemas and query optimization; improved page response times by <span class="metric">45%</span></span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-secondary mt-1"></i>
+                                <span>Implemented backend validation layers; reduced invalid data submissions by <span class="metric">60%</span></span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-secondary mt-1"></i>
+                                <span>Collaborated in Agile delivery cycles using Git-based workflows ensuring reliable releases</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Luxify -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group reveal">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-600 bg-dark shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                    </div>
+                    
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-8 rounded-2xl opacity-80">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 space-y-2 md:space-y-0">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Web Developer</h3>
+                                <div class="text-slate-400 font-medium">Luxify Digital (Freelance)</div>
+                            </div>
+                            <span class="text-slate-500 text-sm font-mono">Oct 2023 – Present</span>
+                        </div>
+                        <ul class="space-y-2 text-slate-300 text-sm">
+                            <li class="flex gap-3">
+                                <i class="fas fa-angle-right text-slate-500 mt-1"></i>
+                                <span>Delivering client-facing software solutions with focus on API integration and long-term maintainability</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- Experience -->
-    <section id="experience" class="reveal">
-      <h2 class="section-heading">Where I've Worked</h2>
+    <!-- Skills Section -->
+    <section id="skills" class="py-32 bg-surface relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary to-transparent opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div class="reveal">
+                    <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-6">
+                        Technical <span class="text-gradient">Arsenal</span>
+                    </h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        Specialized in backend engineering, data processing pipelines, and analytical systems. 
+                        Experienced in architecting scalable solutions across the full development lifecycle.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="glass-card p-6 rounded-xl">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white font-medium">Python / FastAPI</span>
+                                <span class="text-primary font-mono">95%</span>
+                            </div>
+                            <div class="w-full bg-surfaceLight rounded-full h-2">
+                                <div class="h-2 rounded-full bg-gradient-to-r from-primary to-secondary" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white font-medium">SQL (PostgreSQL/MySQL)</span>
+                                <span class="text-primary font-mono">90%</span>
+                            </div>
+                            <div class="w-full bg-surfaceLight rounded-full h-2">
+                                <div class="h-2 rounded-full bg-gradient-to-r from-primary to-secondary" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white font-medium">Data Processing</span>
+                                <span class="text-primary font-mono">85%</span>
+                            </div>
+                            <div class="w-full bg-surfaceLight rounded-full h-2">
+                                <div class="h-2 rounded-full bg-gradient-to-r from-primary to-secondary" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      <div class="job tilt">
-        <h3 class="job-title">Web Developer (Freelance) <span>@ Luxify Digital</span></h3>
-        <p class="job-dates">Oct 2023 — Present</p>
-        <ul>
-          <li>Delivered client-facing features and performance improvements using custom PHP modules.</li>
-          <li>Integrated third-party APIs and wrote concise how-tos for non-technical stakeholders.</li>
-        </ul>
-      </div>
-
-      <div class="job tilt">
-        <h3 class="job-title">Full-Stack Developer <span>@ Varshi Tech</span></h3>
-        <p class="job-dates">May 2023 — Aug 2023</p>
-        <ul>
-          <li>Built PHP/MySQL features and optimised queries using indexing/pagination; improved UX with clear server-side validation.</li>
-          <li>Collaborated with QA and product in Agile sprints; wrote concise release notes and README instructions.</li>
-        </ul>
-      </div>
+                <div class="grid grid-cols-2 gap-4 reveal">
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-primary/30">
+                        <i class="fas fa-database text-3xl text-primary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">Databases</h4>
+                        <p class="text-xs text-slate-400">PostgreSQL, MySQL, Redis, SQLAlchemy</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-secondary/30">
+                        <i class="fas fa-bolt text-3xl text-secondary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">Async Processing</h4>
+                        <p class="text-xs text-slate-400">RQ, Celery, Distributed Queues</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-primary/30">
+                        <i class="fas fa-lock text-3xl text-primary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">Auth & Security</h4>
+                        <p class="text-xs text-slate-400">JWT, OAuth2, RBAC, Data Isolation</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-secondary/30">
+                        <i class="fas fa-brain text-3xl text-secondary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">ML/AI Integration</h4>
+                        <p class="text-xs text-slate-400">OpenAI API, scikit-learn, OpenCV</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-primary/30">
+                        <i class="fas fa-code-branch text-3xl text-primary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">DevOps</h4>
+                        <p class="text-xs text-slate-400">Git, Linux, Docker, CI/CD</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl text-center hover:border-secondary/30">
+                        <i class="fas fa-project-diagram text-3xl text-secondary mb-3"></i>
+                        <h4 class="text-white font-semibold mb-1">Architecture</h4>
+                        <p class="text-xs text-slate-400">REST APIs, Microservices</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" class="reveal">
-      <h2 class="section-heading">Some Things I've Built</h2>
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 relative">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-4">
+                    Featured <span class="text-gradient">Projects</span>
+                </h2>
+                <p class="text-slate-400">Production systems with detailed technical breakdowns and measurable impact.</p>
+            </div>
 
-      <div class="projects-grid">
-        <!-- SimpleMoney -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/simplemoney.jpg" alt="SimpleMoney dashboard" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
-            <h3 class="project-title">SimpleMoney — Personal Finance Web App (2025)</h3>
-          </div>
-          <p class="project-description">Lightweight personal finance tracker; public demo and open-source code linked below. Focus on clear UX, straightforward data flows, and tidy documentation.</p>
-          <ul class="project-tech"><li>React</li><li>Node.js</li><li>MongoDB</li><li>Chart.js</li></ul>
-          <div class="project-links">
-            <a href="http://simplemoney.krishdasani.co.uk/" target="_blank" rel="noopener" title="Live demo" aria-label="Live demo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="m15 3 6 6M21 3l-6 6"/></svg>
-              Live Demo
-            </a>
-            <a href="https://github.com/Krishdasani/SimpleMoney" target="_blank" rel="noopener" title="GitHub repo" aria-label="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- SimpleMoney -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="http://simplemoney.krishdasani.co.uk/" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/Krishdasani/SimpleMoney" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">SimpleMoney</h3>
+                    <p class="text-primary text-sm font-medium mb-4">Financial Data Tracking System</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        A comprehensive personal finance platform designed for capturing, categorizing, and analyzing income and expenses. 
+                        Implemented schema validation and transaction-level integrity checks to ensure data consistency. 
+                        Features automated reporting dashboards with Chart.js visualizations and optimized database queries 
+                        that improved dashboard load times by 50%.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">React</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Node.js</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">MongoDB</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Chart.js</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Bootstrap</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="font-medium">65% reduction in data inconsistencies</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2024 – Present</span>
+                    </div>
+                </div>
 
-        <!-- Website Generator -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/wg-1.png" alt="Website Generator" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 8h10M7 12h6"/></svg>
-            <h3 class="project-title">Website Generator for Photographers (2024)</h3>
-          </div>
-          <p class="project-description">Modular pipeline: ingest images → preprocess with OpenCV → store/query metadata in MySQL → generate pages. Quick-start guide for non-technical users; simple logging & counts to validate steps.</p>
-          <ul class="project-tech"><li>Python</li><li>OpenCV</li><li>PHP</li><li>HTML/CSS</li><li>MySQL</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" rel="noopener" title="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
+                <!-- Static Site Generator -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <a href="https://github.com/Krishdasani/Static-Website-generator" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">Static Site Generator</h3>
+                    <p class="text-primary text-sm font-medium mb-4">MSc Project • Automated Pipeline</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        An automated generation pipeline for photographers that converts raw image datasets into fully deployable websites. 
+                        Applied OpenCV-based preprocessing to standardize inputs including image resizing, format conversion, and metadata extraction. 
+                        Designed metadata-driven build logic ensuring repeatable, deterministic outputs with 80% reduction in manual curation time.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Python</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">OpenCV</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">PHP</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">MySQL</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">HTML/CSS</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-clock"></i>
+                            <span class="font-medium">80% less manual curation time</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2024</span>
+                    </div>
+                </div>
 
-        <!-- FitFusion -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/fitfusion.png" alt="FitFusion" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M9 8v8M15 6v12"/></svg>
-            <h3 class="project-title">FitFusion: Health Platform for Students (2024)</h3>
-          </div>
-          <p class="project-description">Integrated external APIs and normalised responses for consistent UI/state; implemented responsive layouts.</p>
-          <ul class="project-tech"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>API</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/krishdasani/fitfusion" target="_blank" rel="noopener" title="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
+                <!-- MHADA Housing Portal -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <a href="https://github.com/KrishDasani/mhada-housing-portal" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">MHADA Housing Portal</h3>
+                    <p class="text-primary text-sm font-medium mb-4">Government Lottery System</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        A high-volume public housing lottery portal supporting thousands of concurrent registrations. 
+                        Engineered automated verification and allocation logic with server-side validation and prepared statements 
+                        for data integrity. Implemented admin dashboards with real-time analytics and backend validation layers 
+                        that reduced invalid submissions by 60% and manual processing effort by 70%.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">PHP</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">MySQL</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">jQuery</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Bootstrap</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">HTML/CSS</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-users"></i>
+                            <span class="font-medium">70% reduction in manual processing</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2023</span>
+                    </div>
+                </div>
 
-        <!-- MHADA -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/mahada-cover.png" alt="MHADA Portal" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/></svg>
-            <h3 class="project-title">MHADA Housing Lottery Portal (2023)</h3>
-          </div>
-          <p class="project-description">Implemented registration workflows and server-side validation for a high-volume public site. Ensured data integrity with prepared statements and clear error handling.</p>
-          <ul class="project-tech"><li>PHP</li><li>MySQL</li><li>jQuery</li><li>Bootstrap</li><li>HTML</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/KrishDasani/mhada-housing-portal" target="_blank" rel="noopener" title="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
+                <!-- FitFusion -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <a href="https://github.com/krishdasani/fitfusion" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">FitFusion</h3>
+                    <p class="text-primary text-sm font-medium mb-4">Health & Wellness Platform</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        A modular wellness dashboard integrating third-party APIs for fitness and health content aggregation. 
+                        Implemented clean separation between data-fetching logic and presentation layers for maintainability. 
+                        Designed responsive layouts with cross-device optimization that reduced reported usability issues by 40% 
+                        and improved UI consistency across mobile and desktop platforms.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">HTML</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">CSS</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">JavaScript</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">REST API</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span class="font-medium">40% fewer usability issues</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2024</span>
+                    </div>
+                </div>
 
-        <!-- Sara's Care -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/sara-care.jpg" alt="Sara's Care Website" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 7h-8a4 4 0 0 0-4 4v7"/><path d="M7 17h10a4 4 0 0 0 4-4V6a2 2 0 0 0-2-2H7a4 4 0 0 0-4 4v11a3 3 0 0 0 3 3h12"/></svg>
-            <h3 class="project-title">Sara’s Care Website (2023)</h3>
-          </div>
-          <p class="project-description">Responsive healthcare site + simple CMS so non-technical staff can update content safely. Provided a short user guide with screenshots.</p>
-          <ul class="project-tech"><li>PHP</li><li>MySQL</li><li>jQuery</li><li>Bootstrap</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/KrishDasani/saras-care" target="_blank" rel="noopener" title="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
+                <!-- Sara's Care -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <a href="https://github.com/KrishDasani/saras-care" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">Sara's Care</h3>
+                    <p class="text-primary text-sm font-medium mb-4">Healthcare Website with CMS</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        A responsive healthcare website featuring a custom content management system enabling non-technical staff 
+                        to update content safely without coding knowledge. Implemented role-based access controls and content 
+                        approval workflows. Provided comprehensive user documentation with screenshots and step-by-step guides, 
+                        ensuring smooth handover and long-term maintainability for the client.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">PHP</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">MySQL</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">jQuery</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Bootstrap</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-book"></i>
+                            <span class="font-medium">Non-technical CMS + Documentation</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2023</span>
+                    </div>
+                </div>
 
-        <!-- Criminal Face Detection -->
-        <article class="project-card tilt">
-          <div class="project-media">
-            <img src="images/criminal-1.png" alt="Criminal Face Detection" loading="lazy"/>
-          </div>
-          <div class="project-head">
-            <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
-            <h3 class="project-title">Criminal Face Detection System (2022–2023)</h3>
-          </div>
-          <p class="project-description">Engineered a real-time face detection/recognition prototype; exposed a lightweight web interface for testing.</p>
-          <ul class="project-tech"><li>Python</li><li>OpenCV</li><li>scikit-learn</li><li>PHP</li><li>MySQL</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/krishdasani/criminal-face-detection" target="_blank" rel="noopener" title="GitHub repo">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.1c-3.34 .73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.78-1.35-1.78-1.1-.75.08-.73.08-.73 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1 .1-.79.42-1.32 .77-1.63-2.67-.31-5.47-1.34-5.47-5.95 0-1.31 .47-2.38 1.24-3.22-.13-.3-.54-1.56 .12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23 .66 1.69 .25 2.95 .12 3.25 .77 .84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.63-5.48 5.94 .43 .38 .81 1.12 .81 2.26v3.35c0 .32 .21 .68 .83 .56A12 12 0 0 0 12 .5Z"/></svg>
-              GitHub
-            </a>
-          </div>
-        </article>
-      </div>
+                <!-- Criminal Face Detection System -->
+                <div class="glass-card rounded-2xl p-8 group reveal flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="project-icon-large">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <a href="https://github.com/krishdasani/criminal-face-detection" target="_blank" class="text-slate-400 hover:text-primary transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">Criminal Face Detection System</h3>
+                    <p class="text-primary text-sm font-medium mb-4">Computer Vision & Machine Learning</p>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4 flex-1">
+                        An end-to-end analytical pipeline combining computer vision preprocessing with machine learning classification 
+                        for identity verification. Built with OpenCV for image preprocessing including noise reduction, 
+                        face detection, and feature extraction. Integrated scikit-learn for classification with a lightweight 
+                        PHP/MySQL web interface for testing and demonstration. Achieved 30% improvement in detection reliability 
+                        under low-resolution input conditions.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">Python</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">OpenCV</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">scikit-learn</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">PHP</span>
+                        <span class="skill-tag px-3 py-1 rounded-full text-xs">MySQL</span>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <div class="text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fas fa-eye"></i>
+                            <span class="font-medium">30% better low-res detection</span>
+                        </div>
+                        <span class="text-slate-500 text-xs">2022 – 2023</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
-    <!-- Education -->
-    <section id="education" class="reveal">
-      <h2 class="section-heading">Education</h2>
-      <div class="education-entry">
-        <h3 style="color:var(--lightest-slate);margin:0 0 6px">MSc Computer Science (Merit)</h3>
-        <p>University of Strathclyde, Glasgow, UK (2024 — 2025)</p>
-      </div>
-      <div class="education-entry">
-        <h3 style="color:var(--lightest-slate);margin:20px 0 6px">BE Computer Engineering (CGPI 7.61/10)</h3>
-        <p>University of Mumbai, India (2017 — 2021)</p>
-      </div>
+    <!-- Education & Contact -->
+    <section id="contact" class="py-32 bg-surface relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-primary reveal">
+                    <div class="text-primary font-mono text-sm mb-2">2023 – 2024</div>
+                    <h3 class="text-2xl font-bold text-white mb-1">MSc Computer Science</h3>
+                    <p class="text-slate-400 mb-2">University of Strathclyde</p>
+                    <p class="text-slate-500 text-sm">Glasgow, UK • Backend Architecture</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-secondary reveal">
+                    <div class="text-secondary font-mono text-sm mb-2">2020 – 2023</div>
+                    <h3 class="text-2xl font-bold text-white mb-1">BE Computer Engineering</h3>
+                    <p class="text-slate-400 mb-2">University of Mumbai</p>
+                    <p class="text-slate-500 text-sm">Mumbai, India</p>
+                </div>
+            </div>
+
+            <div class="text-center reveal">
+                <h2 class="font-display font-bold text-4xl md:text-5xl text-white mb-6">
+                    Ready to <span class="text-gradient">Connect</span>?
+                </h2>
+                <p class="text-slate-400 mb-8 max-w-xl mx-auto">
+                    Currently open to backend engineering and data platform opportunities. 
+                    Remote, hybrid, or on-site in the UK.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <a href="mailto:krishdasani123@gmail.com" class="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all transform hover:scale-105">
+                        krishdasani123@gmail.com
+                    </a>
+                    <a href="tel:+447767202154" class="px-8 py-4 border border-slate-700 text-white rounded-xl hover:border-primary hover:text-primary transition-all">
+                        07767 202154
+                    </a>
+                </div>
+
+                <div class="flex justify-center gap-8 text-2xl text-slate-500">
+                    <a href="https://www.linkedin.com/in/krish-dasani" target="_blank" class="hover:text-primary transition-all transform hover:scale-110">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/krishdasani" target="_blank" class="hover:text-primary transition-all transform hover:scale-110">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:krishdasani123@gmail.com" class="hover:text-primary transition-all transform hover:scale-110">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="/mnt/kimi/upload/krish_dasani_cv (3).pdf" download class="hover:text-primary transition-all transform hover:scale-110">
+                        <i class="fas fa-file-download"></i>
+                    </a>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-slate-800 text-slate-600 text-sm">
+                    <p>References available upon request</p>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>
-    <p>Designed &amp; Built by Krish Dasani</p>
-  </footer>
-
-  <script>
-    /* Sticky header shadow */
-    const header = document.getElementById('siteHeader');
-    window.addEventListener('scroll',()=>{ header.classList.toggle('scrolled', window.scrollY > 6); });
-
-    /* Close mobile menu on nav click + active nav highlight */
-    const navLinks=[...document.querySelectorAll('nav a[href^="#"]')];
-    const sections=[...document.querySelectorAll('main section[id]')];
-    navLinks.forEach(a=>{
-      a.addEventListener('click',()=>{
-        const t=document.getElementById('menu-toggle'); if(t && t.checked) t.checked=false;
-      });
-    });
-    const setActive=()=>{
-      let current='';
-      const y=window.scrollY+140;
-      sections.forEach(s=>{ if(y>=s.offsetTop && y<s.offsetTop+s.offsetHeight) current=s.id; });
-      navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+current));
-    };
-    window.addEventListener('scroll', setActive); setActive();
-
-    /* Cursor ambient glow (follows pointer, eased) */
-    const glow=document.getElementById('glow');
-    let gx=innerWidth/2, gy=innerHeight/3, tx=gx, ty=gy;
-    addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; });
-    const lerp=(a,b,t)=>a+(b-a)*t;
-    (function loop(){ gx=lerp(gx,tx,.08); gy=lerp(gy,ty,.08); glow.style.left=gx+'px'; glow.style.top=gy+'px'; requestAnimationFrame(loop); })();
-
-    /* Split words for hero headings + animate in */
-    function splitWords(el){ const words=el.textContent.trim().split(' ').map(w=>`<span class="word">${w}&nbsp;</span>`).join(''); el.innerHTML=words; }
-    document.querySelectorAll('.split').forEach(splitWords);
-    function playSplit(el){ el.classList.add('in'); el.querySelectorAll('.word').forEach((w,i)=>{ w.style.animationDelay=(i*60)+'ms'; }); }
-
-    /* Scroll reveal + stagger */
-    const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!prefersReduced && 'IntersectionObserver' in window){
-      const io=new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const sec=entry.target; sec.classList.add('show');
-            sec.querySelectorAll('.skill-category,.project-card,.job').forEach((c,i)=>{ c.style.transitionDelay=Math.min(i*60,360)+'ms'; c.classList.add('show'); });
-            sec.querySelectorAll('.split').forEach(playSplit);
-            io.unobserve(sec);
-          }
+    <script>
+        // Cursor glow
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
         });
-      },{threshold:.12, rootMargin:'0px 0px -10% 0px'});
-      document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
-    }else{
-      document.querySelectorAll('.reveal').forEach(s=>s.classList.add('show'));
-      document.querySelectorAll('.split').forEach(playSplit);
-    }
 
-    /* Magnetic buttons */
-    document.querySelectorAll('.btn.magnetic').forEach(btn=>{
-      let rAF; function onMove(e){
-        const r=btn.getBoundingClientRect(); const x=e.clientX-(r.left+r.width/2); const y=e.clientY-(r.top+r.height/2);
-        btn.style.transform=`translate(${x/8}px, ${y/8}px)`; }
-      function reset(){ btn.style.transform=''; }
-      btn.addEventListener('pointermove', e=>{ cancelAnimationFrame(rAF); rAF=requestAnimationFrame(()=>onMove(e)); });
-      btn.addEventListener('pointerleave', ()=>{ cancelAnimationFrame(rAF); reset(); });
-    });
+        // Typing effect
+        const roles = ['data systems', 'FastAPI architectures', 'scalable APIs', 'backend infrastructure', 'analytical platforms'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter');
 
-    /* Card tilt */
-    document.querySelectorAll('.tilt, .project-card').forEach(card=>{
-      let ticking=false;
-      card.addEventListener('pointermove', e=>{
-        if(ticking) return; ticking=true;
-        requestAnimationFrame(()=>{
-          const r=card.getBoundingClientRect();
-          const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-          const rx=(py-.5)*8, ry=(.5-px)*8;
-          card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-          ticking=false;
+        function typeWriter() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
-      });
-      card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
-    });
-  </script>
+
+        // Initialize
+        typeWriter();
+    </script>
 </body>
 </html>
